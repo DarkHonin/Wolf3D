@@ -16,6 +16,8 @@
 void	w3_std_error(char *msg)
 {
 	ft_putstr("STD_ERROR: ");
+	ft_putstr(SDL_GetError());
+	ft_putstr(" : ");
 	ft_putendl(msg);
 	exit(-1);
 }

@@ -5,14 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 10:21:45 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 11:09:41 by wgourley         ###   ########.fr       */
+/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
+/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-int main(void)
+int main(int ac, char *av[])
 {
-    get_window();
+	t_window *win = get_window();
+	SDL_Event event;
+	int running = 1;
+
+	while(running)
+	{
+		while (SDL_PollEvent(&event) != 0)
+		{
+			if (event.type == SDL_QUIT)
+				running = 0;
+		}
+		SDL_UpdateWindowSurface(win->window_pntr);
+	}
+
 }

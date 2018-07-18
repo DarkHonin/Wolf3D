@@ -20,11 +20,13 @@ t_window	*get_window()
 	if (ret)
 		return (ret);
 	ret = (t_window *)ft_memalloc(sizeof(t_window));
-	ret->mlx_pntr = mlx_init();
-	if (!ret->mlx_pntr)
+	ret->init = SDL_Init(SDL_INIT_VIDEO);
+	ft_putendl("Init SDL");
+	if (ret->init < 0)
 		w3_std_error("Failed to init grapics");
-	ret->window_pntr = mlx_new_window(ret->mlx_pntr, WINDOW_W, WINDOW_H, "Wolf3D");
+	ret->window_pntr = SDL_CreateWindow("Wolf3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_W, WINDOW_H, SDL_WINDOW_SHOWN);
 	if (!ret->window_pntr)
 		w3_std_error("Failed to init window");
+	ret->surface = SDL_GetWindowSurface( ret->window_pntr );
 	return (ret);
 }

@@ -14,14 +14,15 @@
 # define WOLD3D_H
 # define WINDOW_W 800
 # define WINDOW_H 600
-#include <mlx.h>
+#include <SDL2/SDL.h>
 #include <libft.h>
 #include <wolf3d.h>
 
 typedef struct	s_window
 {
-	void	*mlx_pntr;
-	void	*window_pntr;
+	int			init;
+	SDL_Window	*window_pntr;
+	SDL_Surface *surface;
 }				t_window;
 
 t_window	*get_window();

@@ -1,5 +1,5 @@
 NAME=Wolf3D
-LIBS=-L lib
+LIBS=-L lib -L lib/SDL2/
 INCLUDE=-I lib/includes
 
 FILES:=$(basename $(shell ls src))
@@ -9,10 +9,14 @@ GC=gcc
 
 $(NAME): $(OBJ)
 	@echo $(FILES)
-	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -lft -lmlx -framework OpenGL -framework AppKit
+	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -lmingw32 -lSDL2main -lSDL2  -lft
+
+win32: $(OBJ)
+	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -lmingw32 -lSDL2main -lSDL2 -mwindows -lft
 
 $(OBJ):
-	$(GC) src/$(notdir $*).c -o $@ $(INCLUDE) -c
+	mkdir -p obj
+	$(GC) src/$(notdir $*).c -o $@ $(INCLUDE) -c 
 
 clean:
 	rm -f $(NAME)
