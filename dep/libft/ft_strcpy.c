@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/14 16:02:50 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/21 08:00:25 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "libft.h"
+#include <string.h>
 
-int main(int ac, char *av[])
+char	*ft_strcpy(char *dest, const char *src)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	size_t index;
 
-	while(running)
-	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
-	}
-
+	index = ft_strlen(src) + 1;
+	ft_memccpy(dest, src, '\0', index);
+	return (dest);
 }

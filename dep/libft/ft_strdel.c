@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/25 09:17:44 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/25 10:20:36 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include <stdlib.h>
+#include "libft.h"
+#include <string.h>
 
-int main(int ac, char *av[])
+void	ft_strdel(char **str)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
-
-	while(running)
-	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
-	}
-
+	ft_memdel((void **)str);
 }

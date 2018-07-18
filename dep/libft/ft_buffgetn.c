@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_buffgetn.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/06/11 12:52:20 by wgourley          #+#    #+#             */
+/*   Updated: 2018/06/25 16:40:14 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+/*
+**  This version of ft_buffget skips a spesific amount spessified by
+**  offset and returns the first object after that
+*/
+
+int	ft_buffgetn(size_t get_size, t_buff *buff, void *data, size_t offset)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	const size_t skip = get_size * offset;
 
-	while(running)
-	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
-	}
-
+	buff->pointer = buff->data + skip;
+	if (ft_buffstat(buff) < 0)
+		return (0);
+	ft_memcpy(data, buff->pointer, get_size);
+	return (1);
 }

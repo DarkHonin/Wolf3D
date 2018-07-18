@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr_n.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/23 17:17:39 by wgourley          #+#    #+#             */
+/*   Updated: 2018/06/13 10:21:26 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+void	*ft_memchr_n(const void *hay, int needle, size_t len)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	size_t			index;
+	unsigned char	*in;
 
-	while(running)
+	in = (unsigned char *)hay;
+	index = 0;
+	while (index < len)
 	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
+		if (in[index] != (unsigned char)needle)
+			return ((void *)hay + index);
+		index++;
 	}
-
+	return ((void *)NULL);
 }

@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/16 08:35:59 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/26 13:01:38 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
-
-int main(int ac, char *av[])
+void	ft_striteri(char *str, void (*f)(unsigned int, char *))
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	unsigned int index;
 
-	while(running)
+	if (!str || !f)
+		return ;
+	index = 0;
+	while (str[index] != '\0')
 	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
+		f(index, str + index);
+		index++;
 	}
-
 }

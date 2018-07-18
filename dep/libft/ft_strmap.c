@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/16 08:40:57 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/26 12:47:20 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "libft.h"
+#include <string.h>
 
-int main(int ac, char *av[])
+char	*ft_strmap(char const *srt, char (*f)(char))
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	char	*ret;
+	size_t	len;
+	size_t	pos;
 
-	while(running)
+	if (!srt || !f)
+		return ((char *)NULL);
+	pos = 0;
+	len = ft_strlen(srt);
+	ret = (char *)ft_memalloc(len + 1);
+	if (!ret)
+		return ((char *)NULL);
+	while (srt[pos] != '\0')
 	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
+		ret[pos] = f(srt[pos]);
+		pos++;
 	}
-
+	return (ret);
 }

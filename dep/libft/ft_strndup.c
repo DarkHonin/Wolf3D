@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/23 17:24:48 by wgourley          #+#    #+#             */
+/*   Updated: 2018/06/07 12:59:49 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include <stdlib.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+char	*ft_strndup(const char *src, size_t max)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	int		len;
+	char	*buffer;
 
-	while(running)
-	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
-	}
-
+	len = ft_mini(ft_strlen(src), max);
+	buffer = (char *)ft_memalloc(sizeof(char) * (len + 1));
+	if (buffer == (char *)NULL)
+		return ((char *)NULL);
+	ft_memcpy(buffer, src, len + 1);
+	buffer[len] = '\0';
+	return (buffer);
 }

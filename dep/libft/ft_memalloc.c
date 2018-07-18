@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/15 21:00:52 by wgourley          #+#    #+#             */
+/*   Updated: 2018/06/13 10:20:30 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include <stdlib.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+void	*ft_memalloc(size_t size)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	void *ret;
 
-	while(running)
-	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
-	}
-
+	ret = malloc(size);
+	if (ret == NULL)
+		return (NULL);
+	ft_bzero(ret, size);
+	return (ret);
 }

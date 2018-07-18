@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/23 08:11:34 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/23 08:16:24 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+char	*ft_strsub(const char *src, unsigned int start, size_t len)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	char *ret;
 
-	while(running)
-	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
-	}
-
+	if (!src)
+		return ((char *)NULL);
+	ret = (char *)ft_memalloc(len + 1);
+	if (!ret)
+		return ((char *)NULL);
+	ft_strncpy(ret, src + start, len);
+	return (ret);
 }

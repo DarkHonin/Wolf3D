@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/25 10:41:26 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/26 12:57:35 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+t_list	*ft_lstmap(t_list *in, t_list *(*f)(t_list *pa))
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	t_list *ret;
 
-	while(running)
-	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
-	}
-
+	ret = (void *)0;
+	if (!in)
+		return (ret);
+	if (in)
+		ret = f(in);
+	if (in->next)
+		ret->next = ft_lstmap(in->next, f);
+	return (ret);
 }

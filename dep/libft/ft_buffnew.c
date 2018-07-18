@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_buffnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/06/05 13:08:17 by wgourley          #+#    #+#             */
+/*   Updated: 2018/06/22 13:36:21 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+t_buff	*ft_buffnew(size_t buffsize, int me)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
-
-	while(running)
-	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
-	}
-
+	t_buff *ret;
+	
+	(ret) = (t_buff *)ft_memalloc(sizeof(t_buff));
+	if(buffsize == 0)
+		(ret)->data = NULL;
+	else
+		(ret)->data = ft_memalloc(buffsize);
+	(ret)->buff_size = buffsize;
+	(ret)->meta = me;
+	(ret)->pointer = (ret)->data + buffsize;
+	(ret)->available = 0;
+	return (ret);
 }

@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/14 16:24:53 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/20 12:10:59 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include <stdlib.h>
+#include <string.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+char	*ft_strcat(char *a, const char *b)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	size_t	size_a;
+	size_t	size_b;
 
-	while(running)
-	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
-	}
-
+	size_a = ft_strlen(a);
+	size_b = ft_strlen(b);
+	ft_memcpy(a + size_a, b, size_b);
+	a[size_a + size_b] = '\0';
+	return (a);
 }

@@ -11,6 +11,9 @@ $(NAME): $(OBJ)
 	@echo $(FILES)
 	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -lmingw32 -lSDL2main -lSDL2  -lft
 
+setup_win:
+	make -C dep win
+
 win32: $(OBJ)
 	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -lmingw32 -lSDL2main -lSDL2 -mwindows -lft
 

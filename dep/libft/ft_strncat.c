@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/15 20:20:51 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/26 13:03:22 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include <string.h>
+#include <stdlib.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+char	*ft_strncat(char *dest, const char *src, size_t max)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	size_t len;
+	size_t index;
 
-	while(running)
+	len = ft_strlen(dest);
+	index = 0;
+	while (src[index] && index < max)
 	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
+		dest[len + index] = src[index];
+		index++;
 	}
-
+	dest[index + len] = '\0';
+	return (dest);
 }

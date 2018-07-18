@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_count_w.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/24 08:27:08 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/26 13:03:48 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
-
-int main(int ac, char *av[])
+unsigned int	ft_count_w(const char *str, char delim)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	int				a;
+	unsigned int	count;
 
-	while(running)
+	a = 0;
+	count = 0;
+	while (str[a])
 	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
+		if ((str[a] != delim) && (str[a + 1] == delim || str[a + 1] == '\0'))
+			count++;
+		a++;
 	}
-
+	return (count);
 }

@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/19 00:26:01 by wgourley          #+#    #+#             */
+/*   Updated: 2018/05/26 12:56:10 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "libft.h"
+#include <string.h>
 
-int main(int ac, char *av[])
+char	*ft_strrchr(char const *hay, int needle)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	size_t	offset;
+	size_t	len;
+	char	*last;
 
-	while(running)
+	len = ft_strlen(hay);
+	last = (char *)NULL;
+	offset = 0;
+	while (hay[offset] != '\0' && offset < len)
 	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
+		if (hay[offset] == needle)
+			last = (char *)hay + offset;
+		offset++;
 	}
-
+	if (hay[offset] == needle)
+		last = (char *)hay + offset;
+	return (last);
 }

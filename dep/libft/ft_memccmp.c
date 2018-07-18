@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memccmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 17:58:52 by wgourley         ###   ########.fr       */
+/*   Created: 2018/05/11 21:07:29 by wgourley          #+#    #+#             */
+/*   Updated: 2018/06/13 10:20:36 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "libft.h"
 
-int main(int ac, char *av[])
+int	ft_memccmp(const void *one, const void *two, char stp, size_t len)
 {
-	t_window *win = get_window();
-	SDL_Event event;
-	int running = 1;
+	size_t	index;
+	t_byte	a;
+	t_byte	b;
 
-	while(running)
+	index = 0;
+	while (index < len)
 	{
-		while (SDL_PollEvent(&event) != 0)
-		{
-			if (event.type == SDL_QUIT)
-				running = 0;
-			if (event.type == SDL_KEYDOWN)
-				if (event.key.keysym.scancode == 41)
-					running = 0;
-		}
-		SDL_UpdateWindowSurface(win->window_pntr);
+		a = ((t_byte *)one)[index];
+		b = ((t_byte *)two)[index];
+		if (a != b)
+			return (a - b);
+		if (a == stp && b == stp)
+			break ;
+		index++;
 	}
-
+	return (0);
 }
