@@ -1,17 +1,17 @@
 # Makefile to build and install the SDL library
 
 top_builddir = .
-srcdir  = .
+srcdir  = /goinfre/wgourley/Wolf3D/dep/SDL
 objects = build
 gen = gen
-prefix = /usr/local/cross-tools/x86_64-w64-mingw32
+prefix = /usr/local
 exec_prefix = ${prefix}
 bindir	= ${exec_prefix}/bin
 libdir  = ${exec_prefix}/lib
 includedir = ${prefix}/include
 datarootdir = ${prefix}/share
 datadir	= ${datarootdir}
-auxdir	= build-scripts
+auxdir	= ./../SDL/build-scripts
 distpath = $(srcdir)/..
 distdir = SDL2-2.0.8
 distfile = $(distdir).tar.gz
@@ -19,25 +19,25 @@ distfile = $(distdir).tar.gz
 
 SHELL	= /bin/sh
 CC      = gcc
-INCLUDE = -I./include -idirafter ./src/video/khronos
+INCLUDE = -Iinclude -I/goinfre/wgourley/Wolf3D/dep/SDL/include -idirafter /goinfre/wgourley/Wolf3D/dep/SDL/src/video/khronos
 CFLAGS  = -g -O3 -DUSING_GENERATED_CONFIG_H
-EXTRA_CFLAGS = -I./include -idirafter ./src/video/khronos  -mmmx -m3dnow -msse -msse2 -msse3 -Wall -Wdeclaration-after-statement -Werror=declaration-after-statement -mpreferred-stack-boundary=2
+EXTRA_CFLAGS = -Iinclude -I/goinfre/wgourley/Wolf3D/dep/SDL/include -idirafter /goinfre/wgourley/Wolf3D/dep/SDL/src/video/khronos  -mmmx -m3dnow -msse -msse2 -msse3 -Wall -DTARGET_API_MAC_CARBON -DTARGET_API_MAC_OSX -fvisibility=hidden -Wdeclaration-after-statement -Werror=declaration-after-statement -D_THREAD_SAFE
 LDFLAGS = 
-EXTRA_LDFLAGS =  -Wl,--no-undefined -lm -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lversion -luuid -static-libgcc
+EXTRA_LDFLAGS =  -lm -liconv  -Wl,-framework,CoreAudio -Wl,-framework,AudioToolbox -Wl,-framework,ForceFeedback -lobjc -Wl,-framework,CoreVideo -Wl,-framework,Cocoa -Wl,-framework,Carbon -Wl,-framework,IOKit -Wl,-weak_framework,QuartzCore -Wl,-weak_framework,Metal
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 INSTALL = /usr/bin/install -c
 AR	= ar
 RANLIB	= ranlib
-WINDRES	= windres
+WINDRES	= :
 
 TARGET  = libSDL2.la
-OBJECTS = $(objects)/SDL.lo $(objects)/SDL_assert.lo $(objects)/SDL_dataqueue.lo $(objects)/SDL_error.lo $(objects)/SDL_hints.lo $(objects)/SDL_log.lo $(objects)/SDL_atomic.lo $(objects)/SDL_spinlock.lo $(objects)/SDL_audio.lo $(objects)/SDL_audiocvt.lo $(objects)/SDL_audiodev.lo $(objects)/SDL_audiotypecvt.lo $(objects)/SDL_mixer.lo $(objects)/SDL_wave.lo $(objects)/SDL_cpuinfo.lo $(objects)/SDL_dynapi.lo $(objects)/SDL_clipboardevents.lo $(objects)/SDL_dropevents.lo $(objects)/SDL_events.lo $(objects)/SDL_gesture.lo $(objects)/SDL_keyboard.lo $(objects)/SDL_mouse.lo $(objects)/SDL_quit.lo $(objects)/SDL_touch.lo $(objects)/SDL_windowevents.lo $(objects)/SDL_rwops.lo $(objects)/SDL_haptic.lo $(objects)/SDL_gamecontroller.lo $(objects)/SDL_joystick.lo $(objects)/e_atan2.lo $(objects)/e_fmod.lo $(objects)/e_log.lo $(objects)/e_log10.lo $(objects)/e_pow.lo $(objects)/e_rem_pio2.lo $(objects)/e_sqrt.lo $(objects)/k_cos.lo $(objects)/k_rem_pio2.lo $(objects)/k_sin.lo $(objects)/k_tan.lo $(objects)/s_atan.lo $(objects)/s_copysign.lo $(objects)/s_cos.lo $(objects)/s_fabs.lo $(objects)/s_floor.lo $(objects)/s_scalbn.lo $(objects)/s_sin.lo $(objects)/s_tan.lo $(objects)/SDL_power.lo $(objects)/SDL_d3dmath.lo $(objects)/SDL_render.lo $(objects)/SDL_yuv_sw.lo $(objects)/SDL_render_d3d.lo $(objects)/SDL_shaders_d3d.lo $(objects)/SDL_render_d3d11.lo $(objects)/SDL_shaders_d3d11.lo $(objects)/SDL_render_gl.lo $(objects)/SDL_shaders_gl.lo $(objects)/SDL_render_gles.lo $(objects)/SDL_render_gles2.lo $(objects)/SDL_shaders_gles2.lo $(objects)/SDL_render_psp.lo $(objects)/SDL_blendfillrect.lo $(objects)/SDL_blendline.lo $(objects)/SDL_blendpoint.lo $(objects)/SDL_drawline.lo $(objects)/SDL_drawpoint.lo $(objects)/SDL_render_sw.lo $(objects)/SDL_rotate.lo $(objects)/SDL_getenv.lo $(objects)/SDL_iconv.lo $(objects)/SDL_malloc.lo $(objects)/SDL_qsort.lo $(objects)/SDL_stdlib.lo $(objects)/SDL_string.lo $(objects)/SDL_thread.lo $(objects)/SDL_timer.lo $(objects)/SDL_RLEaccel.lo $(objects)/SDL_blit.lo $(objects)/SDL_blit_0.lo $(objects)/SDL_blit_1.lo $(objects)/SDL_blit_A.lo $(objects)/SDL_blit_N.lo $(objects)/SDL_blit_auto.lo $(objects)/SDL_blit_copy.lo $(objects)/SDL_blit_slow.lo $(objects)/SDL_bmp.lo $(objects)/SDL_clipboard.lo $(objects)/SDL_egl.lo $(objects)/SDL_fillrect.lo $(objects)/SDL_pixels.lo $(objects)/SDL_rect.lo $(objects)/SDL_shape.lo $(objects)/SDL_stretch.lo $(objects)/SDL_surface.lo $(objects)/SDL_video.lo $(objects)/SDL_vulkan_utils.lo $(objects)/SDL_yuv.lo $(objects)/yuv_rgb.lo $(objects)/SDL_nullevents.lo $(objects)/SDL_nullframebuffer.lo $(objects)/SDL_nullvideo.lo $(objects)/SDL_diskaudio.lo $(objects)/SDL_dummyaudio.lo $(objects)/SDL_windows.lo $(objects)/SDL_xinput.lo $(objects)/SDL_windowsclipboard.lo $(objects)/SDL_windowsevents.lo $(objects)/SDL_windowsframebuffer.lo $(objects)/SDL_windowskeyboard.lo $(objects)/SDL_windowsmessagebox.lo $(objects)/SDL_windowsmodes.lo $(objects)/SDL_windowsmouse.lo $(objects)/SDL_windowsopengl.lo $(objects)/SDL_windowsopengles.lo $(objects)/SDL_windowsshape.lo $(objects)/SDL_windowsvideo.lo $(objects)/SDL_windowsvulkan.lo $(objects)/SDL_windowswindow.lo $(objects)/SDL_winmm.lo $(objects)/SDL_dinputjoystick.lo $(objects)/SDL_mmjoystick.lo $(objects)/SDL_windowsjoystick.lo $(objects)/SDL_xinputjoystick.lo $(objects)/SDL_syspower.lo $(objects)/SDL_sysfilesystem.lo $(objects)/SDL_sysmutex.lo $(objects)/SDL_syssem.lo $(objects)/SDL_systhread.lo $(objects)/SDL_systls.lo $(objects)/SDL_syscond.lo $(objects)/SDL_systimer.lo $(objects)/SDL_sysloadso.lo $(objects)/SDL_syshaptic.lo
+OBJECTS = $(objects)/SDL.lo $(objects)/SDL_assert.lo $(objects)/SDL_dataqueue.lo $(objects)/SDL_error.lo $(objects)/SDL_hints.lo $(objects)/SDL_log.lo $(objects)/SDL_atomic.lo $(objects)/SDL_spinlock.lo $(objects)/SDL_audio.lo $(objects)/SDL_audiocvt.lo $(objects)/SDL_audiodev.lo $(objects)/SDL_audiotypecvt.lo $(objects)/SDL_mixer.lo $(objects)/SDL_wave.lo $(objects)/SDL_cpuinfo.lo $(objects)/SDL_dynapi.lo $(objects)/SDL_clipboardevents.lo $(objects)/SDL_dropevents.lo $(objects)/SDL_events.lo $(objects)/SDL_gesture.lo $(objects)/SDL_keyboard.lo $(objects)/SDL_mouse.lo $(objects)/SDL_quit.lo $(objects)/SDL_touch.lo $(objects)/SDL_windowevents.lo $(objects)/SDL_rwops.lo $(objects)/SDL_haptic.lo $(objects)/SDL_gamecontroller.lo $(objects)/SDL_joystick.lo $(objects)/e_atan2.lo $(objects)/e_fmod.lo $(objects)/e_log.lo $(objects)/e_log10.lo $(objects)/e_pow.lo $(objects)/e_rem_pio2.lo $(objects)/e_sqrt.lo $(objects)/k_cos.lo $(objects)/k_rem_pio2.lo $(objects)/k_sin.lo $(objects)/k_tan.lo $(objects)/s_atan.lo $(objects)/s_copysign.lo $(objects)/s_cos.lo $(objects)/s_fabs.lo $(objects)/s_floor.lo $(objects)/s_scalbn.lo $(objects)/s_sin.lo $(objects)/s_tan.lo $(objects)/SDL_power.lo $(objects)/SDL_d3dmath.lo $(objects)/SDL_render.lo $(objects)/SDL_yuv_sw.lo $(objects)/SDL_render_d3d.lo $(objects)/SDL_shaders_d3d.lo $(objects)/SDL_render_d3d11.lo $(objects)/SDL_shaders_d3d11.lo $(objects)/SDL_render_gl.lo $(objects)/SDL_shaders_gl.lo $(objects)/SDL_render_gles.lo $(objects)/SDL_render_gles2.lo $(objects)/SDL_shaders_gles2.lo $(objects)/SDL_render_psp.lo $(objects)/SDL_blendfillrect.lo $(objects)/SDL_blendline.lo $(objects)/SDL_blendpoint.lo $(objects)/SDL_drawline.lo $(objects)/SDL_drawpoint.lo $(objects)/SDL_render_sw.lo $(objects)/SDL_rotate.lo $(objects)/SDL_getenv.lo $(objects)/SDL_iconv.lo $(objects)/SDL_malloc.lo $(objects)/SDL_qsort.lo $(objects)/SDL_stdlib.lo $(objects)/SDL_string.lo $(objects)/SDL_thread.lo $(objects)/SDL_timer.lo $(objects)/SDL_RLEaccel.lo $(objects)/SDL_blit.lo $(objects)/SDL_blit_0.lo $(objects)/SDL_blit_1.lo $(objects)/SDL_blit_A.lo $(objects)/SDL_blit_N.lo $(objects)/SDL_blit_auto.lo $(objects)/SDL_blit_copy.lo $(objects)/SDL_blit_slow.lo $(objects)/SDL_bmp.lo $(objects)/SDL_clipboard.lo $(objects)/SDL_egl.lo $(objects)/SDL_fillrect.lo $(objects)/SDL_pixels.lo $(objects)/SDL_rect.lo $(objects)/SDL_shape.lo $(objects)/SDL_stretch.lo $(objects)/SDL_surface.lo $(objects)/SDL_video.lo $(objects)/SDL_vulkan_utils.lo $(objects)/SDL_yuv.lo $(objects)/yuv_rgb.lo $(objects)/SDL_nullevents.lo $(objects)/SDL_nullframebuffer.lo $(objects)/SDL_nullvideo.lo $(objects)/SDL_diskaudio.lo $(objects)/SDL_dummyaudio.lo $(objects)/SDL_sysloadso.lo $(objects)/SDL_cocoaclipboard.lo $(objects)/SDL_cocoaevents.lo $(objects)/SDL_cocoakeyboard.lo $(objects)/SDL_cocoamessagebox.lo $(objects)/SDL_cocoametalview.lo $(objects)/SDL_cocoamodes.lo $(objects)/SDL_cocoamouse.lo $(objects)/SDL_cocoamousetap.lo $(objects)/SDL_cocoaopengl.lo $(objects)/SDL_cocoaopengles.lo $(objects)/SDL_cocoashape.lo $(objects)/SDL_cocoavideo.lo $(objects)/SDL_cocoavulkan.lo $(objects)/SDL_cocoawindow.lo $(objects)/SDL_render_metal.lo $(objects)/SDL_systhread.lo $(objects)/SDL_syssem.lo $(objects)/SDL_sysmutex.lo $(objects)/SDL_syscond.lo $(objects)/SDL_systls.lo $(objects)/SDL_coreaudio.lo $(objects)/SDL_sysjoystick.lo $(objects)/SDL_syshaptic.lo $(objects)/SDL_syspower.lo $(objects)/SDL_sysfilesystem.lo $(objects)/SDL_systimer.lo $(objects)/SDL_rwopsbundlesupport.lo $(objects)/SDL_poll.lo
 GEN_HEADERS = 
 GEN_OBJECTS = 
-VERSION_OBJECTS = $(objects)/version.o
+VERSION_OBJECTS = 
 
 SDLMAIN_TARGET = libSDL2main.la
-SDLMAIN_OBJECTS = $(objects)/SDL_windows_main.lo
+SDLMAIN_OBJECTS = $(objects)/SDL_dummy_main.lo
 
 SDLTEST_TARGET = libSDL2_test.la
 SDLTEST_OBJECTS = $(objects)/SDL_test_assert.lo $(objects)/SDL_test_common.lo $(objects)/SDL_test_compare.lo $(objects)/SDL_test_crc32.lo $(objects)/SDL_test_font.lo $(objects)/SDL_test_fuzzer.lo $(objects)/SDL_test_harness.lo $(objects)/SDL_test_imageBlit.lo $(objects)/SDL_test_imageBlitBlend.lo $(objects)/SDL_test_imageFace.lo $(objects)/SDL_test_imagePrimitives.lo $(objects)/SDL_test_imagePrimitivesBlend.lo $(objects)/SDL_test_log.lo $(objects)/SDL_test_md5.lo $(objects)/SDL_test_memory.lo $(objects)/SDL_test_random.lo
@@ -242,446 +242,441 @@ rpm: $(distfile)
 -include $(OBJECTS:.lo=.d)
 
 # Special dependency for SDL.c, since it depends on SDL_revision.h
-./src/SDL.c: update-revision
+/goinfre/wgourley/Wolf3D/dep/SDL/src/SDL.c: update-revision
 
-$(objects)/SDL.lo: ./src/SDL.c
+$(objects)/SDL.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/SDL.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_assert.lo: ./src/SDL_assert.c
+$(objects)/SDL_assert.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/SDL_assert.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_dataqueue.lo: ./src/SDL_dataqueue.c
+$(objects)/SDL_dataqueue.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/SDL_dataqueue.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_error.lo: ./src/SDL_error.c
+$(objects)/SDL_error.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/SDL_error.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_hints.lo: ./src/SDL_hints.c
+$(objects)/SDL_hints.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/SDL_hints.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_log.lo: ./src/SDL_log.c
+$(objects)/SDL_log.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/SDL_log.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_atomic.lo: ./src/atomic/SDL_atomic.c
+$(objects)/SDL_atomic.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/atomic/SDL_atomic.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_spinlock.lo: ./src/atomic/SDL_spinlock.c
+$(objects)/SDL_spinlock.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/atomic/SDL_spinlock.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_audio.lo: ./src/audio/SDL_audio.c
+$(objects)/SDL_audio.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/audio/SDL_audio.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_audiocvt.lo: ./src/audio/SDL_audiocvt.c
+$(objects)/SDL_audiocvt.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/audio/SDL_audiocvt.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_audiodev.lo: ./src/audio/SDL_audiodev.c
+$(objects)/SDL_audiodev.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/audio/SDL_audiodev.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_audiotypecvt.lo: ./src/audio/SDL_audiotypecvt.c
+$(objects)/SDL_audiotypecvt.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/audio/SDL_audiotypecvt.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_mixer.lo: ./src/audio/SDL_mixer.c
+$(objects)/SDL_mixer.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/audio/SDL_mixer.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_wave.lo: ./src/audio/SDL_wave.c
+$(objects)/SDL_wave.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/audio/SDL_wave.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_cpuinfo.lo: ./src/cpuinfo/SDL_cpuinfo.c
+$(objects)/SDL_cpuinfo.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/cpuinfo/SDL_cpuinfo.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_dynapi.lo: ./src/dynapi/SDL_dynapi.c
+$(objects)/SDL_dynapi.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/dynapi/SDL_dynapi.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_clipboardevents.lo: ./src/events/SDL_clipboardevents.c
+$(objects)/SDL_clipboardevents.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/events/SDL_clipboardevents.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_dropevents.lo: ./src/events/SDL_dropevents.c
+$(objects)/SDL_dropevents.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/events/SDL_dropevents.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_events.lo: ./src/events/SDL_events.c
+$(objects)/SDL_events.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/events/SDL_events.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_gesture.lo: ./src/events/SDL_gesture.c
+$(objects)/SDL_gesture.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/events/SDL_gesture.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_keyboard.lo: ./src/events/SDL_keyboard.c
+$(objects)/SDL_keyboard.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/events/SDL_keyboard.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_mouse.lo: ./src/events/SDL_mouse.c
+$(objects)/SDL_mouse.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/events/SDL_mouse.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_quit.lo: ./src/events/SDL_quit.c
+$(objects)/SDL_quit.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/events/SDL_quit.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_touch.lo: ./src/events/SDL_touch.c
+$(objects)/SDL_touch.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/events/SDL_touch.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowevents.lo: ./src/events/SDL_windowevents.c
+$(objects)/SDL_windowevents.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/events/SDL_windowevents.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_rwops.lo: ./src/file/SDL_rwops.c
+$(objects)/SDL_rwops.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/file/SDL_rwops.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_haptic.lo: ./src/haptic/SDL_haptic.c
+$(objects)/SDL_haptic.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/haptic/SDL_haptic.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_gamecontroller.lo: ./src/joystick/SDL_gamecontroller.c
+$(objects)/SDL_gamecontroller.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/joystick/SDL_gamecontroller.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_joystick.lo: ./src/joystick/SDL_joystick.c
+$(objects)/SDL_joystick.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/joystick/SDL_joystick.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_atan2.lo: ./src/libm/e_atan2.c
+$(objects)/e_atan2.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/e_atan2.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_fmod.lo: ./src/libm/e_fmod.c
+$(objects)/e_fmod.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/e_fmod.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_log.lo: ./src/libm/e_log.c
+$(objects)/e_log.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/e_log.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_log10.lo: ./src/libm/e_log10.c
+$(objects)/e_log10.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/e_log10.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_pow.lo: ./src/libm/e_pow.c
+$(objects)/e_pow.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/e_pow.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_rem_pio2.lo: ./src/libm/e_rem_pio2.c
+$(objects)/e_rem_pio2.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/e_rem_pio2.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/e_sqrt.lo: ./src/libm/e_sqrt.c
+$(objects)/e_sqrt.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/e_sqrt.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/k_cos.lo: ./src/libm/k_cos.c
+$(objects)/k_cos.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/k_cos.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/k_rem_pio2.lo: ./src/libm/k_rem_pio2.c
+$(objects)/k_rem_pio2.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/k_rem_pio2.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/k_sin.lo: ./src/libm/k_sin.c
+$(objects)/k_sin.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/k_sin.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/k_tan.lo: ./src/libm/k_tan.c
+$(objects)/k_tan.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/k_tan.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_atan.lo: ./src/libm/s_atan.c
+$(objects)/s_atan.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/s_atan.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_copysign.lo: ./src/libm/s_copysign.c
+$(objects)/s_copysign.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/s_copysign.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_cos.lo: ./src/libm/s_cos.c
+$(objects)/s_cos.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/s_cos.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_fabs.lo: ./src/libm/s_fabs.c
+$(objects)/s_fabs.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/s_fabs.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_floor.lo: ./src/libm/s_floor.c
+$(objects)/s_floor.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/s_floor.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_scalbn.lo: ./src/libm/s_scalbn.c
+$(objects)/s_scalbn.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/s_scalbn.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_sin.lo: ./src/libm/s_sin.c
+$(objects)/s_sin.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/s_sin.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/s_tan.lo: ./src/libm/s_tan.c
+$(objects)/s_tan.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/libm/s_tan.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_power.lo: ./src/power/SDL_power.c
+$(objects)/SDL_power.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/power/SDL_power.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_d3dmath.lo: ./src/render/SDL_d3dmath.c
+$(objects)/SDL_d3dmath.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/SDL_d3dmath.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render.lo: ./src/render/SDL_render.c
+$(objects)/SDL_render.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/SDL_render.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_yuv_sw.lo: ./src/render/SDL_yuv_sw.c
+$(objects)/SDL_yuv_sw.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/SDL_yuv_sw.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_d3d.lo: ./src/render/direct3d/SDL_render_d3d.c
+$(objects)/SDL_render_d3d.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/direct3d/SDL_render_d3d.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_shaders_d3d.lo: ./src/render/direct3d/SDL_shaders_d3d.c
+$(objects)/SDL_shaders_d3d.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/direct3d/SDL_shaders_d3d.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_d3d11.lo: ./src/render/direct3d11/SDL_render_d3d11.c
+$(objects)/SDL_render_d3d11.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/direct3d11/SDL_render_d3d11.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_shaders_d3d11.lo: ./src/render/direct3d11/SDL_shaders_d3d11.c
+$(objects)/SDL_shaders_d3d11.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/direct3d11/SDL_shaders_d3d11.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_gl.lo: ./src/render/opengl/SDL_render_gl.c
+$(objects)/SDL_render_gl.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/opengl/SDL_render_gl.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_shaders_gl.lo: ./src/render/opengl/SDL_shaders_gl.c
+$(objects)/SDL_shaders_gl.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/opengl/SDL_shaders_gl.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_gles.lo: ./src/render/opengles/SDL_render_gles.c
+$(objects)/SDL_render_gles.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/opengles/SDL_render_gles.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_gles2.lo: ./src/render/opengles2/SDL_render_gles2.c
+$(objects)/SDL_render_gles2.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/opengles2/SDL_render_gles2.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_shaders_gles2.lo: ./src/render/opengles2/SDL_shaders_gles2.c
+$(objects)/SDL_shaders_gles2.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/opengles2/SDL_shaders_gles2.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_psp.lo: ./src/render/psp/SDL_render_psp.c
+$(objects)/SDL_render_psp.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/psp/SDL_render_psp.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blendfillrect.lo: ./src/render/software/SDL_blendfillrect.c
+$(objects)/SDL_blendfillrect.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/software/SDL_blendfillrect.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blendline.lo: ./src/render/software/SDL_blendline.c
+$(objects)/SDL_blendline.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/software/SDL_blendline.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blendpoint.lo: ./src/render/software/SDL_blendpoint.c
+$(objects)/SDL_blendpoint.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/software/SDL_blendpoint.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_drawline.lo: ./src/render/software/SDL_drawline.c
+$(objects)/SDL_drawline.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/software/SDL_drawline.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_drawpoint.lo: ./src/render/software/SDL_drawpoint.c
+$(objects)/SDL_drawpoint.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/software/SDL_drawpoint.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_render_sw.lo: ./src/render/software/SDL_render_sw.c
+$(objects)/SDL_render_sw.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/software/SDL_render_sw.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_rotate.lo: ./src/render/software/SDL_rotate.c
+$(objects)/SDL_rotate.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/software/SDL_rotate.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_getenv.lo: ./src/stdlib/SDL_getenv.c
+$(objects)/SDL_getenv.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/stdlib/SDL_getenv.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_iconv.lo: ./src/stdlib/SDL_iconv.c
+$(objects)/SDL_iconv.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/stdlib/SDL_iconv.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_malloc.lo: ./src/stdlib/SDL_malloc.c
+$(objects)/SDL_malloc.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/stdlib/SDL_malloc.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_qsort.lo: ./src/stdlib/SDL_qsort.c
+$(objects)/SDL_qsort.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/stdlib/SDL_qsort.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_stdlib.lo: ./src/stdlib/SDL_stdlib.c
+$(objects)/SDL_stdlib.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/stdlib/SDL_stdlib.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_string.lo: ./src/stdlib/SDL_string.c
+$(objects)/SDL_string.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/stdlib/SDL_string.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_thread.lo: ./src/thread/SDL_thread.c
+$(objects)/SDL_thread.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/thread/SDL_thread.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_timer.lo: ./src/timer/SDL_timer.c
+$(objects)/SDL_timer.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/timer/SDL_timer.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_RLEaccel.lo: ./src/video/SDL_RLEaccel.c
+$(objects)/SDL_RLEaccel.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_RLEaccel.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit.lo: ./src/video/SDL_blit.c
+$(objects)/SDL_blit.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_blit.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_0.lo: ./src/video/SDL_blit_0.c
+$(objects)/SDL_blit_0.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_blit_0.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_1.lo: ./src/video/SDL_blit_1.c
+$(objects)/SDL_blit_1.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_blit_1.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_A.lo: ./src/video/SDL_blit_A.c
+$(objects)/SDL_blit_A.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_blit_A.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_N.lo: ./src/video/SDL_blit_N.c
+$(objects)/SDL_blit_N.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_blit_N.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_auto.lo: ./src/video/SDL_blit_auto.c
+$(objects)/SDL_blit_auto.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_blit_auto.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_copy.lo: ./src/video/SDL_blit_copy.c
+$(objects)/SDL_blit_copy.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_blit_copy.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_blit_slow.lo: ./src/video/SDL_blit_slow.c
+$(objects)/SDL_blit_slow.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_blit_slow.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_bmp.lo: ./src/video/SDL_bmp.c
+$(objects)/SDL_bmp.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_bmp.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_clipboard.lo: ./src/video/SDL_clipboard.c
+$(objects)/SDL_clipboard.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_clipboard.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_egl.lo: ./src/video/SDL_egl.c
+$(objects)/SDL_egl.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_egl.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_fillrect.lo: ./src/video/SDL_fillrect.c
+$(objects)/SDL_fillrect.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_fillrect.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_pixels.lo: ./src/video/SDL_pixels.c
+$(objects)/SDL_pixels.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_pixels.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_rect.lo: ./src/video/SDL_rect.c
+$(objects)/SDL_rect.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_rect.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_shape.lo: ./src/video/SDL_shape.c
+$(objects)/SDL_shape.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_shape.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_stretch.lo: ./src/video/SDL_stretch.c
+$(objects)/SDL_stretch.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_stretch.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_surface.lo: ./src/video/SDL_surface.c
+$(objects)/SDL_surface.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_surface.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_video.lo: ./src/video/SDL_video.c
+$(objects)/SDL_video.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_video.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_vulkan_utils.lo: ./src/video/SDL_vulkan_utils.c
+$(objects)/SDL_vulkan_utils.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_vulkan_utils.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_yuv.lo: ./src/video/SDL_yuv.c
+$(objects)/SDL_yuv.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/SDL_yuv.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/yuv_rgb.lo: ./src/video/yuv2rgb/yuv_rgb.c
+$(objects)/yuv_rgb.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/yuv2rgb/yuv_rgb.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_nullevents.lo: ./src/video/dummy/SDL_nullevents.c
+$(objects)/SDL_nullevents.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/dummy/SDL_nullevents.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_nullframebuffer.lo: ./src/video/dummy/SDL_nullframebuffer.c
+$(objects)/SDL_nullframebuffer.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/dummy/SDL_nullframebuffer.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_nullvideo.lo: ./src/video/dummy/SDL_nullvideo.c
+$(objects)/SDL_nullvideo.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/dummy/SDL_nullvideo.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_diskaudio.lo: ./src/audio/disk/SDL_diskaudio.c
+$(objects)/SDL_diskaudio.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/audio/disk/SDL_diskaudio.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_dummyaudio.lo: ./src/audio/dummy/SDL_dummyaudio.c
+$(objects)/SDL_dummyaudio.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/audio/dummy/SDL_dummyaudio.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windows.lo: ./src/core/windows/SDL_windows.c
+$(objects)/SDL_sysloadso.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/loadso/dlopen/SDL_sysloadso.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_xinput.lo: ./src/core/windows/SDL_xinput.c
+$(objects)/SDL_cocoaclipboard.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoaclipboard.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsclipboard.lo: ./src/video/windows/SDL_windowsclipboard.c
+$(objects)/SDL_cocoaevents.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoaevents.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsevents.lo: ./src/video/windows/SDL_windowsevents.c
+$(objects)/SDL_cocoakeyboard.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoakeyboard.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsframebuffer.lo: ./src/video/windows/SDL_windowsframebuffer.c
+$(objects)/SDL_cocoamessagebox.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoamessagebox.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowskeyboard.lo: ./src/video/windows/SDL_windowskeyboard.c
+$(objects)/SDL_cocoametalview.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoametalview.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsmessagebox.lo: ./src/video/windows/SDL_windowsmessagebox.c
+$(objects)/SDL_cocoamodes.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoamodes.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsmodes.lo: ./src/video/windows/SDL_windowsmodes.c
+$(objects)/SDL_cocoamouse.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoamouse.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsmouse.lo: ./src/video/windows/SDL_windowsmouse.c
+$(objects)/SDL_cocoamousetap.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoamousetap.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsopengl.lo: ./src/video/windows/SDL_windowsopengl.c
+$(objects)/SDL_cocoaopengl.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoaopengl.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsopengles.lo: ./src/video/windows/SDL_windowsopengles.c
+$(objects)/SDL_cocoaopengles.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoaopengles.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsshape.lo: ./src/video/windows/SDL_windowsshape.c
+$(objects)/SDL_cocoashape.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoashape.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsvideo.lo: ./src/video/windows/SDL_windowsvideo.c
+$(objects)/SDL_cocoavideo.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoavideo.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsvulkan.lo: ./src/video/windows/SDL_windowsvulkan.c
+$(objects)/SDL_cocoavulkan.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoavulkan.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowswindow.lo: ./src/video/windows/SDL_windowswindow.c
+$(objects)/SDL_cocoawindow.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/video/cocoa/SDL_cocoawindow.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_winmm.lo: ./src/audio/winmm/SDL_winmm.c
+$(objects)/SDL_render_metal.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/render/metal/SDL_render_metal.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_dinputjoystick.lo: ./src/joystick/windows/SDL_dinputjoystick.c
+$(objects)/SDL_systhread.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/thread/pthread/SDL_systhread.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_mmjoystick.lo: ./src/joystick/windows/SDL_mmjoystick.c
+$(objects)/SDL_syssem.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/thread/pthread/SDL_syssem.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_windowsjoystick.lo: ./src/joystick/windows/SDL_windowsjoystick.c
+$(objects)/SDL_sysmutex.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/thread/pthread/SDL_sysmutex.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_xinputjoystick.lo: ./src/joystick/windows/SDL_xinputjoystick.c
+$(objects)/SDL_syscond.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/thread/pthread/SDL_syscond.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_syspower.lo: ./src/power/windows/SDL_syspower.c
+$(objects)/SDL_systls.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/thread/pthread/SDL_systls.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_sysfilesystem.lo: ./src/filesystem/windows/SDL_sysfilesystem.c
+$(objects)/SDL_coreaudio.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/audio/coreaudio/SDL_coreaudio.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_sysmutex.lo: ./src/thread/windows/SDL_sysmutex.c
+$(objects)/SDL_sysjoystick.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/joystick/darwin/SDL_sysjoystick.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_syssem.lo: ./src/thread/windows/SDL_syssem.c
+$(objects)/SDL_syshaptic.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/haptic/darwin/SDL_syshaptic.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_systhread.lo: ./src/thread/windows/SDL_systhread.c
+$(objects)/SDL_syspower.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/power/macosx/SDL_syspower.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_systls.lo: ./src/thread/windows/SDL_systls.c
+$(objects)/SDL_sysfilesystem.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/filesystem/cocoa/SDL_sysfilesystem.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_syscond.lo: ./src/thread/generic/SDL_syscond.c
+$(objects)/SDL_systimer.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/timer/unix/SDL_systimer.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_systimer.lo: ./src/timer/windows/SDL_systimer.c
+$(objects)/SDL_rwopsbundlesupport.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/file/cocoa/SDL_rwopsbundlesupport.m
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_sysloadso.lo: ./src/loadso/windows/SDL_sysloadso.c
+$(objects)/SDL_poll.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/core/unix/SDL_poll.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_syshaptic.lo: ./src/haptic/dummy/SDL_syshaptic.c
-	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
-
-$(objects)/version.o: ./src/main/windows/version.rc
-	$(WINDRES) $< $@
 
-$(objects)/SDL_windows_main.lo: ./src/main/windows/SDL_windows_main.c
+$(objects)/SDL_dummy_main.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/main/dummy/SDL_dummy_main.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 
-$(objects)/SDL_test_assert.lo: ./src/test/SDL_test_assert.c
+$(objects)/SDL_test_assert.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_assert.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_common.lo: ./src/test/SDL_test_common.c
+$(objects)/SDL_test_common.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_common.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_compare.lo: ./src/test/SDL_test_compare.c
+$(objects)/SDL_test_compare.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_compare.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_crc32.lo: ./src/test/SDL_test_crc32.c
+$(objects)/SDL_test_crc32.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_crc32.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_font.lo: ./src/test/SDL_test_font.c
+$(objects)/SDL_test_font.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_font.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_fuzzer.lo: ./src/test/SDL_test_fuzzer.c
+$(objects)/SDL_test_fuzzer.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_fuzzer.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_harness.lo: ./src/test/SDL_test_harness.c
+$(objects)/SDL_test_harness.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_harness.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imageBlit.lo: ./src/test/SDL_test_imageBlit.c
+$(objects)/SDL_test_imageBlit.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_imageBlit.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imageBlitBlend.lo: ./src/test/SDL_test_imageBlitBlend.c
+$(objects)/SDL_test_imageBlitBlend.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_imageBlitBlend.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imageFace.lo: ./src/test/SDL_test_imageFace.c
+$(objects)/SDL_test_imageFace.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_imageFace.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imagePrimitives.lo: ./src/test/SDL_test_imagePrimitives.c
+$(objects)/SDL_test_imagePrimitives.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_imagePrimitives.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_imagePrimitivesBlend.lo: ./src/test/SDL_test_imagePrimitivesBlend.c
+$(objects)/SDL_test_imagePrimitivesBlend.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_imagePrimitivesBlend.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_log.lo: ./src/test/SDL_test_log.c
+$(objects)/SDL_test_log.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_log.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_md5.lo: ./src/test/SDL_test_md5.c
+$(objects)/SDL_test_md5.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_md5.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_memory.lo: ./src/test/SDL_test_memory.c
+$(objects)/SDL_test_memory.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_memory.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@ 
-$(objects)/SDL_test_random.lo: ./src/test/SDL_test_random.c
+$(objects)/SDL_test_random.lo: /goinfre/wgourley/Wolf3D/dep/SDL/src/test/SDL_test_random.c
 	$(RUN_CMD_CC)$(LIBTOOL) --tag=CC --mode=compile $(CC) $(CFLAGS) $(EXTRA_CFLAGS) -MMD -MT $@ -c $< -o $@
 

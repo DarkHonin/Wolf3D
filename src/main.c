@@ -30,5 +30,4 @@ int main(int ac, char *av[])
 		}
 		SDL_UpdateWindowSurface(win->window_pntr);
 	}
-
 }

@@ -20,7 +20,7 @@ t_window	*get_window()
 	if (ret)
 		return (ret);
 	ret = (t_window *)ft_memalloc(sizeof(t_window));
-	ret->init = SDL_Init(SDL_INIT_EVERYTHING);
+	ret->init = SDL_Init(SDL_INIT_VIDEO);
 	ft_putendl("Init SDL");
 	if (ret->init < 0)
 		w3_std_error("Failed to init grapics");
