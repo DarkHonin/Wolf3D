@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point3_util.c                                      :+:      :+:    :+:   */
+/*   vect_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/20 14:13:32 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/20 14:15:31 by wgourley         ###   ########.fr       */
+/*   Created: 2018/07/14 13:36:25 by wgourley          #+#    #+#             */
+/*   Updated: 2018/07/14 13:37:41 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
+#include "vect_ft.h"
 
-SDL_Point	*normilise_point(t_point3 *a)
+unsigned int     vect_len(t_vector a)
 {
-	SDL_Point *ret;
-
-	ret = (SDL_Point *)ft_memalloc(sizeof(SDL_Point));
-	ret->x = a->x / a->z;
-	ret->y = a->y / a->z;
-	return (ret);
+    return (a->buff_size / a->meta);
 }

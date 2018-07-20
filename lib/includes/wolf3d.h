@@ -17,6 +17,7 @@
 #include <SDL2/SDL.h>
 #include <libft.h>
 #include <wolf3d.h>
+#include <vect_ft.h>
 
 typedef struct	s_window
 {
@@ -34,16 +35,23 @@ typedef	struct	s_point3
 
 typedef	struct	s_w3d_surface
 {
-	t_point3	*points;
+	t_vector	points;
 	int			count;
 	t_point3	center;
 }				t_w3surface;
+
+typedef struct	s_space
+{
+	t_vector	entities;
+}				t_space;
 
 t_window	*get_window();
 void		clear();
 void		draw_point(t_point3 *point);
 void		draw_surface_lines(t_w3surface *e);
 void		draw_surface_points(t_w3surface *e);
-SDL_Point	*normilise_point(t_point3 a);
+SDL_Point	*normilise_point(t_point3 *a);
+t_point3	**surf_to_point_list(t_w3surface *surf);
+void		add_point_to_surface(t_w3surface *s, t_point3 **p);
 
 #endif

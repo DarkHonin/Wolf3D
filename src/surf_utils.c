@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point3_util.c                                      :+:      :+:    :+:   */
+/*   surf_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/20 14:13:32 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/20 14:15:31 by wgourley         ###   ########.fr       */
+/*   Created: 2018/07/20 23:59:02 by wgourley          #+#    #+#             */
+/*   Updated: 2018/07/20 23:59:02 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-SDL_Point	*normilise_point(t_point3 *a)
+void	add_point_to_surface(t_w3surface *s, t_point3 **p)
 {
-	SDL_Point *ret;
-
-	ret = (SDL_Point *)ft_memalloc(sizeof(SDL_Point));
-	ret->x = a->x / a->z;
-	ret->y = a->y / a->z;
-	return (ret);
+	vect_push(s->points, p);
 }
