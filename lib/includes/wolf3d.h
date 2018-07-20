@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 10:20:49 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/20 13:55:54 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/07/20 14:15:40 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ t_window	*get_window();
 void		clear();
 void		draw_point(t_point3 *point);
 void		draw_surface_lines(t_w3surface *e);
+void		draw_surface_points(t_w3surface *e);
+SDL_Point	*normilise_point(t_point3 a);
 
 #endif
