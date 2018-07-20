@@ -13,7 +13,6 @@ sdl_win:
 	cp -r SDL/include ../lib/includes/SDL2
 
 sdl_mac:
-	make -C SDL_BUILD_MAC
 	cp SDL_BUILD_MAC/build/.libs/libSDL2.a ../lib
 	cp SDL_BUILD_MAC/build/.libs/libSDL2main.a ../lib
 	cp SDL_BUILD_MAC/build/.libs/libSDL2_test.a ../lib
@@ -27,8 +26,7 @@ mklibft:
 
 config_sdl_mac:
 	mkdir -p SDL_BUILD_MAC
-	cd SDL_BUILD_MAC \
-	./../SDL/configure
+	cd SDL_BUILD_MAC && ./../SDL/configure
 
 config_sdl_win:
 	for i in $(LIBS); do \

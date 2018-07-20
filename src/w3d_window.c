@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 11:04:04 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/17 11:10:14 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/07/20 13:49:33 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,16 @@ t_window	*get_window()
 	ft_putendl("Init SDL");
 	if (ret->init < 0)
 		w3_std_error("Failed to init grapics");
-	ret->window_pntr = SDL_CreateWindow("Wolf3D", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_W, WINDOW_H, SDL_WINDOW_SHOWN);
-	if (!ret->window_pntr)
+	if (SDL_CreateWindowAndRenderer( WINDOW_W, WINDOW_H, 0,&ret->window_pntr, &ret->surface) != 0)
 		w3_std_error("Failed to init window");
-	ret->surface = SDL_GetWindowSurface( ret->window_pntr );
 	return (ret);
+}
+
+void		clear()
+{
+	t_window *win;
+
+	win = get_window();
+	SDL_SetRenderDrawColor(win->surface, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_RenderClear(win->surface);
 }
