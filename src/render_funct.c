@@ -17,7 +17,7 @@ void	draw_point(t_point3 *point)
 	t_window *win;
 
 	win = get_window();
-	SDL_RenderDrawPoint(win->surface, point->x/point->z, point->y/point->z);
+	SDL_RenderDrawPoint(win->surface, point->cells[0][0]/point->cells[0][2], point->cells[0][1]/point->cells[0][2]);
 }
 
 void	draw_surface_points(t_w3surface *e)
@@ -27,13 +27,20 @@ void	draw_surface_points(t_w3surface *e)
 
 	nodes = surf_to_point_list(e);
 	x = 0;
-	ft_putendl("Rendering surface points");
 	while (x < e->count)
-	{
-		ft_putnbr(x);
-		ft_putendl(" :Point");
 		draw_point(nodes[x++]);
-	}
+}
+
+void	draw_line(t_point3 *a, t_point3 *b)
+{
+	SDL_Point *na;
+	SDL_Point *nb;
+
+	na = normilise_point(a);
+	nb = normilise_point(b);
+	SDL_RenderDrawLine(get_window()->surface, na->x, na->y, nb->x, nb->y);
+	free(na);
+	free(nb);
 }
 
 void	draw_surface_lines(t_w3surface *e)
@@ -49,29 +56,22 @@ void	draw_surface_lines(t_w3surface *e)
 	nodes = surf_to_point_list(e);
 	while (x < e->count)
 	{
+		if (nodes[x] == e->closest)
+				SDL_SetRenderDrawColor(get_window()->surface, 255, 0, 0, SDL_ALPHA_OPAQUE);
+			else
+				SDL_SetRenderDrawColor(get_window()->surface, 255, 255, 255, SDL_ALPHA_OPAQUE);
 		if (x > 0)
-		{
-			norm1 = normilise_point(point3_sum(nodes[x - 1], e->origen));
-			norm2 = normilise_point(point3_sum(nodes[x], e->origen));
-			norm1->x += WINDOW_CENTER_X;
-			norm1->y += WINDOW_CENTER_Y;
-			norm2->x += WINDOW_CENTER_X;
-			norm2->y += WINDOW_CENTER_Y;
-			ft_putnbr(norm1->x);
-			ft_putnbr(norm1->y);
-			SDL_RenderDrawLine(get_window()->surface, norm1->x, norm1->y, norm2->x, norm2->y);
-		}
+			draw_line(point3_sum(nodes[x - 1], e->origen), point3_sum(nodes[x], e->origen));
+		else
+			draw_line(point3_sum(nodes[e->count - 1], e->origen), point3_sum(nodes[x], e->origen));
 		x++;
 	}
-	norm1 = normilise_point(point3_sum(nodes[0], e->origen));
-	norm1->x += WINDOW_CENTER_X;
-	norm1->y += WINDOW_CENTER_Y;
-	SDL_RenderDrawLine(get_window()->surface, norm1->x, norm1->y, norm2->x, norm2->y);
 }
 
 void	draw_t_space(t_space *q, void (*draw)(t_w3surface *))
 {
 	t_w3surface **kids;
+	SDL_Point *pp;
 	int max;
 	int x;
 
@@ -81,6 +81,12 @@ void	draw_t_space(t_space *q, void (*draw)(t_w3surface *))
 	while (x < max)
 	{
 		draw(kids[x]);
+		pp = normilise_point(kids[x]->origen);
+		SDL_SetRenderDrawColor(get_window()->surface, 255, 0, 0, SDL_ALPHA_OPAQUE);
+		SDL_RenderDrawLine(get_window()->surface, pp->x, pp->y, pp->x - 20, pp->y);
+		SDL_SetRenderDrawColor(get_window()->surface, 0, 255, 0, SDL_ALPHA_OPAQUE);
+		SDL_RenderDrawLine(get_window()->surface, pp->x, pp->y, pp->x, pp->y - 20);
 		x++;
 	}
+	
 }

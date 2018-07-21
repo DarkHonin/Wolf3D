@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"chrono": "c",
-		"xhash": "c"
+		"xhash": "c",
+		"cmath": "c"
 	}
 }

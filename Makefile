@@ -2,22 +2,26 @@ NAME=Wolf3D
 LIBS=-L lib  -L /goinfre/wgourley/.brew/Cellar/sdl2/2.0.8/lib
 INCLUDE=-I lib/includes -I /goinfre/wgourley/.brew/include/
 
-FILES:=$(basename $(shell ls src))
-OBJ:=$(foreach obj,$(FILES),$(addprefix obj/,$(addsuffix .o,$(obj))))
+FILES:=$(basename $(shell find src -type f))
+OBJ:=$(foreach obj,$(notdir $(FILES)),$(addprefix obj/,$(addsuffix .o,$(obj))))
 
 GC=gcc
 
+make:
+	@echo "$(FILES)"
+	@echo "$(OBJ)"
+	$(MAKE) win
+
 win: $(OBJ)
-	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -lmingw32 -lSDL2main -lSDL2 -mwindows -lvect -lft 
+	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -lmingw32 -lSDL2main -lSDL2 -mwindows -lvect -lft -lmatrix
 
 mac: $(OBJ)
-	@echo \e[32mMaking
 	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -framework OpenGl -lSDL2 -lft -lvect -framework AppKit -framework Cocoa
 
 $(OBJ):
 	mkdir -p obj
-	@echo -e "\e[32mMaking"
-	$(GC) src/$(notdir $*).c -o $@ $(INCLUDE) -c 
+	@echo -e "\e[32mMaking $@"
+	$(GC) $(shell find src -type f -name $(notdir $*).c) -o obj/$(notdir $*).o $(INCLUDE) -c 
 
 clean:
 	rm -f $(NAME)
