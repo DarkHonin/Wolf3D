@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 17:58:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/20 14:19:32 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/07/21 11:48:39 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int main(int ac, char *av[])
 					surf->origen->z/=0.9;
 				clear();
 				SDL_SetRenderDrawColor(win->surface, 255, 255, 255, SDL_ALPHA_OPAQUE);
-				draw_surface_lines(surf);
+				draw_t_space(space, &draw_surface_lines);
 				SDL_RenderPresent(win->surface);
 			}
 		}

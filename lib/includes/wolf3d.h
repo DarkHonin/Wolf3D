@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/17 10:20:49 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/20 14:15:40 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/07/21 11:48:49 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ void		draw_surface_points(t_w3surface *e);
 SDL_Point	*normilise_point(t_point3 *a);
 t_point3	*point3_sum(t_point3 *a, t_point3 *b);
 t_point3	**surf_to_point_list(t_w3surface *surf);
+t_w3surface **get_space_surfaces(t_space *e);
+int			get_surface_count(t_space *a);
 void		add_point_to_surface(t_w3surface *s, t_point3 **p);
+void	draw_t_space(t_space *q, void (*draw)(t_w3surface *));
 
 #endif

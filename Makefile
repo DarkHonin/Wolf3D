@@ -1,6 +1,6 @@
 NAME=Wolf3D
-LIBS=-L lib # -L /goinfre/wgourley/.brew/Cellar/sdl2/2.0.8/lib
-INCLUDE=-I lib/includes #-I /goinfre/wgourley/.brew/include/
+LIBS=-L lib  -L /goinfre/wgourley/.brew/Cellar/sdl2/2.0.8/lib
+INCLUDE=-I lib/includes -I /goinfre/wgourley/.brew/include/
 
 FILES:=$(basename $(shell ls src))
 OBJ:=$(foreach obj,$(FILES),$(addprefix obj/,$(addsuffix .o,$(obj))))
@@ -12,7 +12,7 @@ win: $(OBJ)
 
 mac: $(OBJ)
 	@echo \e[32mMaking
-	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -framework OpenGl -lSDL2 -lft -framework AppKit -framework Cocoa
+	$(GC) -o $(NAME) $(OBJ) $(INCLUDE) $(LIBS) -framework OpenGl -lSDL2 -lft -lvect -framework AppKit -framework Cocoa
 
 $(OBJ):
 	mkdir -p obj

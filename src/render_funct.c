@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 13:44:34 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/20 14:18:44 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/07/21 11:47:44 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,8 @@ void	draw_surface_lines(t_w3surface *e)
 			norm1->y += WINDOW_CENTER_Y;
 			norm2->x += WINDOW_CENTER_X;
 			norm2->y += WINDOW_CENTER_Y;
-			ft_putendl("Rendering surface points");
 			ft_putnbr(norm1->x);
-			ft_putstr(" : ");
 			ft_putnbr(norm1->y);
-			ft_putendl("");
 			SDL_RenderDrawLine(get_window()->surface, norm1->x, norm1->y, norm2->x, norm2->y);
 		}
 		x++;
@@ -70,4 +67,20 @@ void	draw_surface_lines(t_w3surface *e)
 	norm1->x += WINDOW_CENTER_X;
 	norm1->y += WINDOW_CENTER_Y;
 	SDL_RenderDrawLine(get_window()->surface, norm1->x, norm1->y, norm2->x, norm2->y);
+}
+
+void	draw_t_space(t_space *q, void (*draw)(t_w3surface *))
+{
+	t_w3surface **kids;
+	int max;
+	int x;
+
+	kids = get_space_surfaces(q);
+	max = get_surface_count(q);
+	x = 0;
+	while (x < max)
+	{
+		draw(kids[x]);
+		x++;
+	}
 }
