@@ -14,6 +14,8 @@
 # define WOLD3D_H
 # define WINDOW_W 800
 # define WINDOW_H 600
+# define WINDOW_CENTER_X WINDOW_W / 2
+# define WINDOW_CENTER_Y WINDOW_H / 2
 #include <SDL2/SDL.h>
 #include <libft.h>
 #include <wolf3d.h>
@@ -37,7 +39,7 @@ typedef	struct	s_w3d_surface
 {
 	t_vector	points;
 	int			count;
-	t_point3	center;
+	t_point3	*origen;
 }				t_w3surface;
 
 typedef struct	s_space
@@ -51,6 +53,7 @@ void		draw_point(t_point3 *point);
 void		draw_surface_lines(t_w3surface *e);
 void		draw_surface_points(t_w3surface *e);
 SDL_Point	*normilise_point(t_point3 *a);
+t_point3	*point3_sum(t_point3 *a, t_point3 *b);
 t_point3	**surf_to_point_list(t_w3surface *surf);
 void		add_point_to_surface(t_w3surface *s, t_point3 **p);
 

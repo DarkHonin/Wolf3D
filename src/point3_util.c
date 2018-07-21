@@ -11,13 +11,22 @@
 /* ************************************************************************** */
 
 #include <wolf3d.h>
+#include <w3d_generation.h>
 
 SDL_Point	*normilise_point(t_point3 *a)
 {
 	SDL_Point *ret;
 
 	ret = (SDL_Point *)ft_memalloc(sizeof(SDL_Point));
-	ret->x = a->x / a->z;
-	ret->y = a->y / a->z;
+	ret->x = a->x / (a->z + (a->z == 0));
+	ret->y = a->y / (a->z + (a->z == 0));
+	return (ret);
+}
+
+t_point3	*point3_sum(t_point3 *a, t_point3 *b)
+{
+	t_point3 *ret;
+
+	ret = make_t_point3(a->x + b->x, a->y + b->y, a->z + b->z);
 	return (ret);
 }

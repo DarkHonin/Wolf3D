@@ -39,5 +39,6 @@ t_w3surface		*make_t_w3surface()
 	ret = (t_w3surface *)ft_memalloc(sizeof(t_w3surface));
 	ret->points = MAKE_VECT(sizeof(t_point3 *));
 	ret->count = 0;
+	ret->origen = make_t_point3(0, 0, 1);
 	return (ret);
 }

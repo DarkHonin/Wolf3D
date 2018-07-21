@@ -51,8 +51,12 @@ void	draw_surface_lines(t_w3surface *e)
 	{
 		if (x > 0)
 		{
-			norm1 = normilise_point(nodes[x - 1]);
-			norm2 = normilise_point(nodes[x]);
+			norm1 = normilise_point(point3_sum(nodes[x - 1], e->origen));
+			norm2 = normilise_point(point3_sum(nodes[x], e->origen));
+			norm1->x += WINDOW_CENTER_X;
+			norm1->y += WINDOW_CENTER_Y;
+			norm2->x += WINDOW_CENTER_X;
+			norm2->y += WINDOW_CENTER_Y;
 			ft_putendl("Rendering surface points");
 			ft_putnbr(norm1->x);
 			ft_putstr(" : ");
@@ -62,6 +66,8 @@ void	draw_surface_lines(t_w3surface *e)
 		}
 		x++;
 	}
-	norm1 = normilise_point(nodes[0]);
+	norm1 = normilise_point(point3_sum(nodes[0], e->origen));
+	norm1->x += WINDOW_CENTER_X;
+	norm1->y += WINDOW_CENTER_Y;
 	SDL_RenderDrawLine(get_window()->surface, norm1->x, norm1->y, norm2->x, norm2->y);
 }
