@@ -12,6 +12,7 @@
 
 #include <wolf3d.h>
 #include <w3d_generation.h>
+#include <w3d_math.h>
 #include <math.h>
 
 SDL_Point	*normilise_point(t_point3 *a)
@@ -26,15 +27,49 @@ SDL_Point	*normilise_point(t_point3 *a)
 	return (ret);
 }
 
-t_point3	*point3_sum(t_point3 *a, t_point3 *b)
+SDL_Point	**normilise_point_list(t_point3 **a, int amount)
 {
-	t_point3 *ret;
+	int			x;
+	SDL_Point	**ret;
 
-	ret = make_t_point3(a->cells[0][0] + b->cells[0][0], a->cells[0][1] + b->cells[0][1], a->cells[0][2] + b->cells[0][2]);
+	ret = (SDL_Point **)ft_memalloc(sizeof(SDL_Point *) * amount);
+	x = 0;
+	while (x < amount)
+	{
+		ret[x] = normilise_point(a[x]);
+		x++;
+	}
 	return (ret);
 }
 
 float		dst_from_center(t_point3 *e)
 {
 	return (sqrtf(powf(X(e), 2) + powf(Y(e), 2) + powf(Z(e), 2)));
+}
+
+float		point3_dist(t_point3 *a, t_point3 *b)
+{
+	return (abs(sqrtf(powf(X(a) - X(b), 2) + powf(Y(a) - Y(b), 2) + powf(Z(a) - Z(b), 2))));
+}
+
+float		point3_direction(t_point3 *a, t_point3 *b)
+{
+
+}
+
+t_shape		points_to_shape(t_point3 **pnts, int count)
+{
+	int x;
+	t_shape ret;
+
+	ret = (t_shape)ft_memalloc(sizeof(t_line *) * count);
+	while (x < count)
+	{
+		if (x == 0)
+			ret[x] = pnts_to_line(pnts[x], pnts[count - 1]);
+		else
+			ret[x] = pnts_to_line(pnts[x], pnts[x - 1]);
+		x++;
+	}
+	return (ret);
 }

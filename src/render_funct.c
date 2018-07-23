@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <wolf3d.h>
+#include <w3d_math.h>
 
 void	draw_point(t_point3 *point)
 {
@@ -25,19 +26,19 @@ void	draw_surface_points(t_w3surface *e)
 	int x;
 	t_point3		**nodes;
 
-	nodes = surf_to_point_list(e);
+	nodes = get_surf_points(e);
 	x = 0;
 	while (x < e->count)
 		draw_point(nodes[x++]);
 }
 
-void	draw_line(t_point3 *a, t_point3 *b)
+void	draw_line(t_line *e)
 {
 	SDL_Point *na;
 	SDL_Point *nb;
 
-	na = normilise_point(a);
-	nb = normilise_point(b);
+	na = normilise_point(e->a);
+	nb = normilise_point(e->b);
 	SDL_RenderDrawLine(get_window()->surface, na->x, na->y, nb->x, nb->y);
 	free(na);
 	free(nb);
@@ -47,13 +48,13 @@ void	draw_surface_lines(t_w3surface *e)
 {
 	int x;
 	t_point3	**nodes;
-	SDL_Point	*norm1;
-	SDL_Point	*norm2;
+	t_point3	*a;
+	t_point3	*b;
 
 	if (e->count <= 1)
 		return ;
 	x = 0;
-	nodes = surf_to_point_list(e);
+	nodes = get_surf_points(e);
 	while (x < e->count)
 	{
 		if (nodes[x] == e->closest)
@@ -61,11 +62,26 @@ void	draw_surface_lines(t_w3surface *e)
 			else
 				SDL_SetRenderDrawColor(get_window()->surface, 255, 255, 255, SDL_ALPHA_OPAQUE);
 		if (x > 0)
-			draw_line(point3_sum(nodes[x - 1], e->origen), point3_sum(nodes[x], e->origen));
+			a = point3_sum(nodes[x - 1], e->origen);
 		else
-			draw_line(point3_sum(nodes[e->count - 1], e->origen), point3_sum(nodes[x], e->origen));
+			a = point3_sum(nodes[e->count - 1], e->origen);
+		b = point3_sum(nodes[x], e->origen);
+		draw_line(pnts_to_line(a, b));
 		x++;
 	}
+}
+
+void	fill_triangle(t_w3surface *a)
+{
+	t_point3	**nodes;
+	t_point3	*A;
+	t_point3	*B;
+	t_point3	*C;
+	
+	nodes = get_surf_points(a);
+	A = point3_dif(nodes[1], nodes[0]);
+	B = point3_dif(nodes[2], nodes[0]);
+	C = cross(A, B);
 }
 
 void	draw_t_space(t_space *q, void (*draw)(t_w3surface *))

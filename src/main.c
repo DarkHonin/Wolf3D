@@ -12,6 +12,7 @@
 
 #include <wolf3d.h>
 #include <w3d_generation.h>
+#include <w3d_math.h>
 
 int main(int ac, char *av[])
 {
@@ -29,13 +30,13 @@ int main(int ac, char *av[])
 	surf = make_t_w3surface();
 	vect_push(space->entities, &surf);
 	add_point_to_surface(surf, -25, -25, 1);
-	add_point_to_surface(surf, 0, -5, 20);
+	//add_point_to_surface(surf, 0, -5, 20);
 	add_point_to_surface(surf, 25, -25, 1);
-	add_point_to_surface(surf, 5, 0, 20);
+	//add_point_to_surface(surf, 5, 0, 20);
 	add_point_to_surface(surf, 25, 25, 1);
-	add_point_to_surface(surf, 0, 5, 20);
-	add_point_to_surface(surf, -25, 25, 1);
-	add_point_to_surface(surf, -5, 0, 20);
+	//add_point_to_surface(surf, 0, 5, 20);
+	//add_point_to_surface(surf, -25, 25, 1);
+	//add_point_to_surface(surf, -5, 0, 20);
 	Z(surf->origen) = 100;
 
 	clear();
@@ -66,7 +67,7 @@ int main(int ac, char *av[])
 					rotate_surf(surf, -1, &get_rot_matrix_y);
 				clear();
 				SDL_SetRenderDrawColor(win->surface, 255, 255, 255, SDL_ALPHA_OPAQUE);
-				draw_t_space(space, &draw_surface_lines);
+				fill_triangle(surf);
 				SDL_RenderPresent(win->surface);
 			}
 		}

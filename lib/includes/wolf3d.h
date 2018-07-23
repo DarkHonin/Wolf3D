@@ -25,6 +25,7 @@
 #include <vect_ft.h>
 #include <matrix_ft.h>
 
+
 typedef struct	s_window
 {
 	int			init;
@@ -48,22 +49,31 @@ typedef struct	s_space
 	t_vector	entities;
 }				t_space;
 
+
+typedef struct	s_line
+{
+	t_point3	*a;
+	t_point3	*b;
+	float		distance;
+	float		angle;
+}				t_line;
+
+typedef t_line	**t_shape;
+
 t_window	*get_window();
 void		clear();
 void		draw_point(t_point3 *point);
 void		draw_surface_lines(t_w3surface *e);
 void		draw_surface_points(t_w3surface *e);
 SDL_Point	*normilise_point(t_point3 *a);
-t_point3	*point3_sum(t_point3 *a, t_point3 *b);
-t_point3	**surf_to_point_list(t_w3surface *surf);
+t_point3	**get_surf_points(t_w3surface *surf);
 t_w3surface **get_space_surfaces(t_space *e);
 int			get_surface_count(t_space *a);
 void		add_point_to_surface(t_w3surface *s, float x, float y, float z);
 void		draw_t_space(t_space *q, void (*draw)(t_w3surface *));
-void 		rotate_surf(t_w3surface *s, float deg, t_matrix *(*f)(float));
-t_matrix 	*get_rot_matrix_x(float deg);
-t_matrix *get_rot_matrix_y(float deg);
-t_matrix *get_rot_matrix_z(float deg);
-float		dst_from_center(t_point3 *e);
+SDL_Point	**normilise_point_list(t_point3 **a, int amount);
+t_shape		points_to_shape(t_point3 **pnts, int count);
+float		point3_dist(t_point3 *a, t_point3 *b);
+
 
 #endif

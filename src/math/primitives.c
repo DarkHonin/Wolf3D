@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   w3d_surface_utils.c                                :+:      :+:    :+:   */
+/*   primitives.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/20 23:03:09 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/20 23:03:09 by wgourley         ###   ########.fr       */
+/*   Created: 2018/07/22 10:59:15 by wgourley          #+#    #+#             */
+/*   Updated: 2018/07/22 10:59:15 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
-#include <w3d_generation.h>
+#include <w3d_math.h>
 
-t_point3 **get_surf_points(t_w3surface *surf)
+t_line	*pnts_to_line(t_point3 *a, t_point3 *b)
 {
-	return ((t_point3 **)(surf->points->data));
-}
+	t_line *ret;
 
-void	add_point_to_surface(t_w3surface *s, float x, float y, float z)
-{
-	t_point3 *r;
-
-	r = make_t_point3(x, y, z);
-	vect_push(s->points, &r);
-	s->count++;
+	ret = (t_line *)ft_memalloc(sizeof(t_line));
+	ret->a = a;
+	ret->b = b;
+	ret->distance = sqrtf(powf(X(a) - X(b), 2) + powf(Y(a) - Y(b), 2) + powf(Z(a) - Z(b), 2));
+	return (ret);
 }

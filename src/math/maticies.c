@@ -66,7 +66,7 @@ void rotate_surf(t_w3surface *s, float deg, t_matrix *(*f)(float))
 	float r1;
 	float r2;
 
-	points = surf_to_point_list(s);
+	points = get_surf_points(s);
 	
 	x = 0;
 	s->closest = NULL;

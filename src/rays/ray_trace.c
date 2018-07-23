@@ -1,28 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   w3d_surface_utils.c                                :+:      :+:    :+:   */
+/*   ray_trace.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/20 23:03:09 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/20 23:03:09 by wgourley         ###   ########.fr       */
+/*   Created: 2018/07/22 14:37:12 by wgourley          #+#    #+#             */
+/*   Updated: 2018/07/22 14:37:13 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 #include <w3d_generation.h>
+#include <w3d_math.h>
 
-t_point3 **get_surf_points(t_w3surface *surf)
+void	trace(t_space *e)
 {
-	return ((t_point3 **)(surf->points->data));
+	int 		x;
+	int 		y;
+	t_line		*ray;
+	t_point3	*a;
+	t_point3	*b;
+	x = 0;
+	while (x < WINDOW_W)
+	{
+		y = 0;
+		while (y < WINDOW_H)
+		{
+			a = make_t_point3(x, y, 0);
+			b = make_t_point3(x, y, 255);
+			ray = pnts_to_line(a, b);
+			y++;
+		}
+		x++;
+	}
 }
 
-void	add_point_to_surface(t_w3surface *s, float x, float y, float z)
+void	collides_surface(t_w3surface *a, t_line *pnt)
 {
-	t_point3 *r;
+	t_point3 **normed;
 
-	r = make_t_point3(x, y, z);
-	vect_push(s->points, &r);
-	s->count++;
+	normed = get_surf_points(a);
+
 }
