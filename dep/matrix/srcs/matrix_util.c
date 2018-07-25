@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   w3d_error.c                                        :+:      :+:    :+:   */
+/*   matrix_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/23 21:30:37 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/23 21:30:37 by wgourley         ###   ########.fr       */
+/*   Created: 2018/07/23 18:39:00 by wgourley          #+#    #+#             */
+/*   Updated: 2018/07/23 18:39:00 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wolf3d.h>
-#include <stdlib.h>
+#include "matrix_ft.h"
 
-void	w3_std_error(char *msg)
+void	del_matrix(t_matrix *a)
 {
-	ft_putstr("STD_ERROR: ");
-	ft_putstr(SDL_GetError());
-	ft_putstr(" : ");
-	ft_putendl(msg);
-	exit(-1);
+	int x;
+
+	x = 0;
+	while (x < a->rows)
+		free(a->cells[x++]);
+	free(a->cells);
+	free(a);
 }

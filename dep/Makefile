@@ -1,22 +1,31 @@
-LIBFT="$(realpath libft)"
-GNL="$(realpath gnl)"
-VECT="$(realpath vect_ft)"
-MATRIX="$(realpath matrix)"
+include libs.mk ../project.mk
 
-HEADERS=$(GNL)/get_next_line.h $(LIBFT)/libft.h $(VECT)/vect_ft.h $(MATRIX)/matrix_ft.h
-
-LIBS=$(LIBFT) $(GNL) $(VECT) $(MATRIX)
-
-ARCH=$(LIBFT)/libft.a $(GNL)/libgnl.a $(VECT)/libvect.a $(MATRIX)/libmatrix.a
-
-make:
-	@for i in $(LIBS); do \
-		echo "Doing $$i : $(CMD)"; \
-		make -C $$i LIBFT=$(LIBFT) $(CMD); \
+make: $(LIB_DIR) $(ARCHIVES)
+	@echo -n "Copying headers"
+	@for i in $(LIBRAIRIES); do \
+		cp -r $$i/includes $(LIB_DIR); \
+		echo -n "."; \
 	done
-	@for i in $(HEADERS); do \
-		cp $$i ../lib/includes; \
+	@echo Done
+	@echo -n "Copying archives"
+	@for i in $(ARCHIVES); do \
+		cp $$i $(LIB_DIR); \
+		echo -n "."; \
 	done
-	@for i in $(ARCH); do \
-		cp $$i ../lib; \
+	@echo Done
+
+
+$(ARCHIVES):
+	@make -C $(dir $@) 
+
+$(LIB_DIR):
+	mkdir $(LIB_DIR)
+
+re:
+	@echo -n "Cleaning"
+	@for i in $(LIBRAIRIES); do \
+		make -C $$i fclean ;\
+		echo -n "."; \
 	done
+	@echo Done
+	@$(MAKE) make

@@ -1,7 +1,9 @@
 include ../gen.mk
 
-NAME=$(realpath libft.a)
-export NAME
+NAME=lib3dft.a
+
+main: start
+
 make: $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
