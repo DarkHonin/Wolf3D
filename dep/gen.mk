@@ -5,7 +5,7 @@ INCLUDE_DIR=$(realpath includes)
 SRCS=$(shell find $(SRC_DIR) -type f)
 OBJS:=$(foreach obj,$(notdir $(SRCS)),$(addprefix $(OBJ_DIR)/,$(addsuffix .o,$(obj))))
 
-include $(realpath ../libs.mk)
+include $(LIB_CFG)
 
 NAME=thing
 
@@ -14,6 +14,7 @@ $(NAME):
 	@for i in $(SRCS); do \
 		echo "Discovered: $$i"; \
 	done
+	
 	$(MAKE) make
 
 $(OBJS): $(OBJ_DIR)

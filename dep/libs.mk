@@ -6,4 +6,5 @@ VECTFT=		/c/Users/Honin/Documents/Code/C/Wolf3D/dep/vect_ft
 
 LIBRAIRIES= $(LIBFT) $(GNL) $(MATRIXFT) $(VECTFT) $(3DFT)
 ARCHIVES=$(LIBFT)/libft.a $(GNL)/libgnl.a $(MATRIXFT)/libmatrix.a $(VECTFT)/libvect.a $(3DFT)/lib3dft.a
+LINKS=-lgnl -lvect -l3dft -lmatrix -lft
 INCLUDE=$(addprefix -I,$(addsuffix /includes, $(LIBRAIRIES)))

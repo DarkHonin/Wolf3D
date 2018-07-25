@@ -1,5 +1,11 @@
 include libs.mk ../project.mk
 
+prep:
+	@for i in $(INCLUDE); do \
+		echo $$i; \
+	done
+	@$(MAKE) make
+
 make: $(LIB_DIR) $(ARCHIVES)
 	@echo -n "Copying headers"
 	@for i in $(LIBRAIRIES); do \

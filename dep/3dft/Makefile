@@ -1,3 +1,4 @@
+LIB_CFG=$(realpath ../libs.mk)
 include ../gen.mk
 
 NAME=lib3dft.a
