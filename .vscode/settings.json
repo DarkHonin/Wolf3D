@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"chrono": "c",
-		"xhash": "c",
-		"cmath": "c",
-		"wolf3d.h": "c"
-	}
-}
