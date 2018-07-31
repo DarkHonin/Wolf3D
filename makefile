@@ -1,13 +1,11 @@
-
+LIBDIR=dep
 LIB_CFG=dep/libs.mk
-
-NAME=Wolf3D.a
+NAME=Wolf3D.bin
 include dep/gen.mk
-DD = $(shell echo $(WORKING_DIR))
 export NAME
 
 make: $(OBJS)
-	gcc -o $(NAME) $(OBJS) $(INCLUDE) $(addprefix -L,$(LIBRAIRIES)) -I$(INCLUDE_DIR) $(LINKS) -framework OpenGl -framework Appkit
+	gcc -o $(NAME) $(OBJS) $(INCLUDE) $(addprefix -L,$(LIBRAIRIES)) -I$(INCLUDE_DIR) $(LINKS) -framework OpenGl -framework Appkit -lmlx
 
 build:
 	make -C dep
