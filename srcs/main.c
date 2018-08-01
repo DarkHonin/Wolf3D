@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 17:33:59 by wgourley          #+#    #+#             */
-/*   Updated: 2018/07/31 12:36:24 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/01 12:21:06 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,22 @@ static void draw_point(t_point3 a)
 
 static void draw_line(t_line a)
 {
-	plot_line(a, 0.001, &draw_point);
+	plot_line(a, 0.5, &draw_point);
 }
 
 int loop(void *e)
 {
-	line_itter(e, 4, &draw_line);
+	static t_line *lines = NULL;
+	t_mesh *mesh;
+
+	mesh = e;
+	if (!lines)
+	{
+		lines = list_to_lines(mesh->points[0], 5, mesh->origen);
+		ft_putendl("lines derrived\n");
+	}
+	line_itter(lines, mesh->size[0], &draw_line);
+	
 	flip();
 	return (1);
 }
@@ -35,13 +45,16 @@ int main(void)
 {
 	get_window();
 
-	t_point3_list lst = MAKE_EMPTY_LIST(5);
-	t_line	*lines;
-	*lst = *MAKE_POINT(-WINDOW_C_W, 0, 0);
-	*(lst + 1) = *MAKE_POINT(-WINDOW_C_W / 2, 0, 10);
-	*(lst + 2) = *MAKE_POINT(0, 0, 10);
-	*(lst + 3) = *MAKE_POINT(WINDOW_C_W / 2, 0, 10);
-	*(lst + 4) = *MAKE_POINT(WINDOW_C_W, 0, 0);
-	lines = list_to_lines(lst, 5, MAKE_POINT(0, 0, 1));
-	start_loop(&loop, lines);
+	t_size size = MAKE_SIZE(1, 5);
+	t_point3_surface surf = MAKE_EMPTY_SURFACE(size);
+	//set_point(surf[0], -WINDOW_C_W, 0, 0);
+	//set_surf_point(surf, MAKE_SIZE(0, 0), -WINDOW_C_W, 0, 0);
+	//set_surf_point(surf, MAKE_SIZE(1, 0), -WINDOW_C_W / 2, 0, 10);
+	//set_surf_point(surf, MAKE_SIZE(2, 0), 0, 0, 10);
+	//set_surf_point(surf, MAKE_SIZE(3, 0), WINDOW_C_W / 2, 0, 10);
+	//set_surf_point(surf, MAKE_SIZE(4, 0), WINDOW_C_W, 0, 10);
+	ft_putendl("Points assigned");
+	t_mesh	*mesh = make_mesh(surf, size, MAKE_POINT(0, 0, 1));
+	ft_putendl("Init complete");
+	start_loop(&loop, mesh);
 }
