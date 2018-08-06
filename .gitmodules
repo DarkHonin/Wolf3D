@@ -13,3 +13,6 @@
 [submodule "dep/matrix_ft"]
 	path = dep/matrix_ft
 	url = https://github.com/DarkHonin/matrix_ft.git
+[submodule "dep/vect_ft"]
+	path = dep/vect_ft
+	url = https://github.com/DarkHonin/vect_ft.git
