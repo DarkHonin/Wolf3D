@@ -6,55 +6,58 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 17:33:59 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/01 12:21:06 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/06 13:16:55 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 #include <stdio.h>
-static void draw_point(t_point3 a)
+
+void	minmap(t_map *map)
 {
-	t_projected_point *q = standard_projection(&a);
+	t_len	x;
+	t_len	y;
+	int		posx;
+	int		posy;
+	int 	color;
 
-	put_pixel(X(q) + WINDOW_C_W, Y(q) + WINDOW_C_H, 255, ((10 - Z((&a))) / 10) * 255, 0);
-}
-
-static void draw_line(t_line a)
-{
-	plot_line(a, 0.5, &draw_point);
-}
-
-int loop(void *e)
-{
-	static t_line *lines = NULL;
-	t_mesh *mesh;
-
-	mesh = e;
-	if (!lines)
+	y = 0;
+	draw_rect(0, 0, 
+		MAKE_SIZE((map->w * 10) + ((map->w + 1) * 2), (map->h * 10) + ((map->h + 1) * 2)),
+		(t_color){100, 100, 100});
+	while (y < map->h)
 	{
-		lines = list_to_lines(mesh->points[0], 5, mesh->origen);
-		ft_putendl("lines derrived\n");
+		x = 0;
+		while (x < map->w)
+		{
+			posx = (x * 10) + ((x + 1) * 2);
+			posy = (y * 10) + ((y + 1) * 2);
+			color = map->tiles[y][x];
+			draw_rect(posx, posy, MAKE_SIZE(10, 10), (t_color){
+																color * 25,
+																(color % 2) * 25,
+																(color % 4) * 25});
+			x++;
+		}
+		y++;
 	}
-	line_itter(lines, mesh->size[0], &draw_line);
-	
+}
+
+int		loop(t_map	*map)
+{
+	//clean();
+	minmap(map);
 	flip();
 	return (1);
 }
 
 int main(void)
 {
-	get_window();
+	t_map *e;
 
-	t_size size = MAKE_SIZE(1, 5);
-	t_point3_surface surf = MAKE_EMPTY_SURFACE(size);
-	//set_point(surf[0], -WINDOW_C_W, 0, 0);
-	//set_surf_point(surf, MAKE_SIZE(0, 0), -WINDOW_C_W, 0, 0);
-	//set_surf_point(surf, MAKE_SIZE(1, 0), -WINDOW_C_W / 2, 0, 10);
-	//set_surf_point(surf, MAKE_SIZE(2, 0), 0, 0, 10);
-	//set_surf_point(surf, MAKE_SIZE(3, 0), WINDOW_C_W / 2, 0, 10);
-	//set_surf_point(surf, MAKE_SIZE(4, 0), WINDOW_C_W, 0, 10);
-	ft_putendl("Points assigned");
-	t_mesh	*mesh = make_mesh(surf, size, MAKE_POINT(0, 0, 1));
-	ft_putendl("Init complete");
-	start_loop(&loop, mesh);
+
+	get_window();
+	e = read_map("map.w3");
+
+	start_loop(&loop, e);
 }

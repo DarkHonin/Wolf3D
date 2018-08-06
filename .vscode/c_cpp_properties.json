@@ -16,7 +16,9 @@
                 "${workspaceFolder}/dep/sdlgf/includes",
                 "${workspaceFolder}/dep/libft/includes",
                 "${workspaceFolder}/dep/3dft/includes",
-                "${workspaceFolder}/dep/3dft/includes"
+                "${workspaceFolder}/dep/3dft/includes",
+                "${workspaceFolder}/dep/gnl/includes",
+                "${workspaceFolder}/dep/vect_ft/includes"
             ]
         }
     ],
