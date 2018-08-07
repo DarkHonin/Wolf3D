@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 11:35:03 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/06 12:50:05 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/07 12:44:44 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,15 @@ t_map	*read_map(char *file)
 	to_int_map(lines, ret);
 	free(line);
 	close(fd);
+	return (ret);
+}
+
+t_map	*get_map()
+{
+	static t_map *ret = NULL;
+
+	if (ret)
+		return (ret);
+	ret = read_map("map.w3");
 	return (ret);
 }

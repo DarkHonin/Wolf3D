@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.h                                           :+:      :+:    :+:   */
+/*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/30 17:01:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/07 12:44:53 by wgourley         ###   ########.fr       */
+/*   Created: 2018/08/07 10:43:08 by wgourley          #+#    #+#             */
+/*   Updated: 2018/08/07 11:02:18 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLF3D_H
-# define WOLF3D_H
+#include <wolf3d.h>
 
-# include <mlx.h>
-# define WINDOW_TITLE "Wolf3D"
-# include <SDLGF.h>
-# include <3dft.h>
-
-# define KEY_ESC 53
-# define KEY_UP 126
-# define KEY_LEFT 123
-# define KEY_DOWN 125
-# define KEY_RIGHT 124
-
-typedef struct	s_map
+t_player	*get_player()
 {
-	int		**tiles;
-	t_len	w;
-	t_len	h;
-}				t_map;
+	static t_player *p = NULL;
 
-typedef	t_point3	t_player;
-
-t_map		*read_map(char *file);
-t_player	*get_player();
-t_map		*get_map();
-
-#endif
+	if (p)
+		return (p);
+	p = MAKE_POINT(0.5, 0.5, 0);
+	return (p);
+}
