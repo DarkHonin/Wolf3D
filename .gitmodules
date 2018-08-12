@@ -16,3 +16,6 @@
 [submodule "dep/vect_ft"]
 	path = dep/vect_ft
 	url = https://github.com/DarkHonin/vect_ft.git
+[submodule "dep/math_ft"]
+	path = dep/math_ft
+	url = https://github.com/DarkHonin/math_ft.git
