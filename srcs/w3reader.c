@@ -6,85 +6,56 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 11:35:03 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/07 12:44:44 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/13 14:50:36 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 #include <fcntl.h>
-#include <vect_ft.h>
 #include <get_next_line.h>
 #include <unistd.h>
 #include <stdio.h>
 
-static t_vector	parse_line(char *line)
+static	void	add_values(char *str, t_value_v *p, t_len *count)
 {
-	t_vector	ret;
-	char		**subs;
-	int			value;
-	int			index;
+	char		**parts;
+	t_len		i;
 
-	ft_putstr("Splitting: ");
-	ft_putendl(line);
-	ret = MAKE_VECT(sizeof(int));
-	subs = ft_strsplit(line, ' ');
-	index = 0;
-	while (subs[index])
+	parts = ft_strsplit(str, ' ');
+	i = 0;
+	while (parts[i])
 	{
-		value = ft_atoi(subs[index]);
-		vect_push(ret, &value);
-		free(subs[index]);
-		index++;
+		append_to_value_v(p, *count, ft_atoi(parts[i]));
+		free(parts[i++]);
+		(*count)++;
 	}
-	return (ret);
+	free(str);
+	free(parts);
 }
 
-static void	to_int_map(t_vector e, t_map *a)
-{
-	t_vector	*lines;
-	t_len		line_c;
-
-	ft_putendl("Parsing data");
-	a->tiles = (int	**)ft_memalloc(sizeof(int*) * a->h);
-	lines	= e->data;
-	line_c = 0;
-	while (line_c < a->h)
-	{
-		a->tiles[line_c] = lines[line_c]->data;
-		line_c++;
-	}
-
-}
-
-t_map	*read_map(char *file)
+t_map			*read_map(char *file)
 {
 	int			fd;
+	t_map 		*m;
 	char		*line;
-	t_map		*ret;
-	t_vector	lines;
-	t_vector	hold;
+	t_value_v	values;
 
 	fd = open(file, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	ft_putendl("Starting file read");
-	ret = NULL;
-	lines = MAKE_VECT(sizeof(t_vector));
-	ret = (t_map *)ft_memalloc(sizeof(t_map));
-	ret->w = 0;
-	ret->h = 0;
-	while(get_next_line(fd, &line) > 0)
+	m = (t_map *)ft_memalloc(sizeof(t_map));
+	m->size[1] = 0;
+	m->size[0] = 0;
+	values = create_value_v(0);
+	while (get_next_line(fd, &line))
 	{
-		hold = parse_line(line);
-		ret->w = vect_len(hold);
-		vect_push(lines, &hold);
-		ret->h++;
-		free(line);
+		ft_putstr("Line: ");
+		ft_putendl(line);
+		add_values(line, &values, &(m->size[0]));
+		m->size[1]++;
 	}
-	to_int_map(lines, ret);
 	free(line);
-	close(fd);
-	return (ret);
+	m->points = values;
+	m->size[0] = m->size[0] / m->size[1];
+	return (m);
 }
 
 t_map	*get_map()
