@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 17:33:59 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/13 14:49:47 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/14 14:40:50 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,18 @@
 #include <stdio.h>
 #include <math.h>
 
+int redraw = 1;
+
 int		loop(t_map	*map)
 {
-	draw_map();
-	draw_player();
-	flip();
+	if (redraw)
+	{
+		trace();
+		draw_map();
+		draw_player();
+		flip();
+	}
+	redraw = 0;
 	return (map != NULL);
 }
 
@@ -41,6 +48,7 @@ int	key(int keycode)
 	clean();
 	ft_putnbr(keycode);
 	ft_putendl("");
+	redraw = 1;
 	return (1);
 }
 

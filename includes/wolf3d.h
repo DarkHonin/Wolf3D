@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 17:01:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/13 10:39:20 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/14 12:02:10 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ t_player	get_player();
 t_map		*get_map();
 void		draw_map();
 void		draw_player();
+void		trace();
 
 #endif
