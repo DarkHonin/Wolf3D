@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/07 10:43:08 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/13 14:48:31 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/16 12:23:07 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ t_player	get_player()
 		return (p);
 	p = create_value_v(3);
 	p[0] = 0.5;
-	p[1] = 0.5;
-	p[2] = 0;
+	p[1] = 0.9;
+	p[2] = -90;
 	return (p);
 }
 
@@ -38,7 +38,7 @@ void	draw_player()
 	s[0] = 2;
 	s[1] = 3;
 	d = create_value_m(s);
-	map = get_map();
+	map = get_map(NULL);
 	d[0][0] = MINI_SIZE * p[0] * map->size[0];
 	d[0][1] = MINI_SIZE * p[1] * map->size[1];
 	t = ((p[2] - (FOV / 2)) / 180) * M_PI;

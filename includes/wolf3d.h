@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 17:01:52 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/14 12:02:10 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/16 12:42:53 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <SDLGF.h>
 # include <math_ft.h>
 
-# define MINI_SIZE 20
+# define MINI_SIZE 10
 # define FOV 45
 # define VIEW_MAX 100
 # define KEY_ESC 53
@@ -37,7 +37,7 @@ typedef	t_value_v t_player;
 
 t_map		*read_map(char *file);
 t_player	get_player();
-t_map		*get_map();
+t_map		*get_map(char *e);
 void		draw_map();
 void		draw_player();
 void		trace();

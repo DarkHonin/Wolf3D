@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 17:33:59 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/14 14:40:50 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/16 16:01:15 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		loop(t_map	*map)
 		trace();
 		draw_map();
 		draw_player();
-		flip();
+		FLIP;
 	}
 	redraw = 0;
 	return (map != NULL);
@@ -41,9 +41,9 @@ int	key(int keycode)
 	p[2] -= 10 * (keycode == KEY_LEFT);
 
 	rad = (p[2] / 180) * M_PI;
-	p[1] += (sinf(rad) * (keycode == KEY_UP)) * 0.01;
+	p[1] += (sinf(rad) * (keycode == KEY_UP)) * 0.05;
 	p[1] -= (sin(rad) * (keycode == KEY_DOWN)) * 0.1;
-	p[0] += (cos(rad) * (keycode == KEY_UP)) * 0.01;
+	p[0] += (cos(rad) * (keycode == KEY_UP)) * 0.05;
 	p[0] -= (cos(rad) * (keycode == KEY_DOWN)) * 0.1;
 	clean();
 	ft_putnbr(keycode);
@@ -53,12 +53,15 @@ int	key(int keycode)
 }
 
 
-int main(void)
+int main(int ac, char **av)
 {
 	t_map *e;
 
 	get_window();
-	e = get_map();
+	if (ac != 2)
+		e = get_map("map.w3");
+	else
+		e = get_map(av[1]);
 	ft_putstr("Map size: [");
 	ft_putnbr(e->size[0]);
 	ft_putstr(" : ");

@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 10:33:48 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/13 14:34:10 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/16 12:23:42 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	draw_map()
 
 	a = create_value_v(2);
 	b = create_value_v(2);
-	m = get_map();
+	m = get_map(NULL);
 	i[1] = 0;
 	while (i[1] < m->size[1])
 	{
