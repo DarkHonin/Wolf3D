@@ -6,15 +6,14 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 15:13:41 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/17 13:01:40 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/17 14:26:35 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 #include <math.h>
-#include <stdio.h>
 
-static t_value		mu(t_value in, t_value v)
+t_value				mu(t_value in, t_value v)
 {
 	return (in * v);
 }

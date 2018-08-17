@@ -6,12 +6,11 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 17:33:59 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/17 13:10:59 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/17 14:26:48 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
-#include <stdio.h>
 #include <math.h>
 
 int	loop(t_map *map)
@@ -19,8 +18,6 @@ int	loop(t_map *map)
 	if (map->redraw)
 	{
 		trace();
-		draw_map();
-		draw_player();
 		flip();
 	}
 	map->redraw = 0;
@@ -38,7 +35,7 @@ int	key(int keycode)
 	p[2] += 10 * (keycode == KEY_RIGHT);
 	p[2] -= 10 * (keycode == KEY_LEFT);
 	rad = (p[2] / 180) * M_PI;
-	p[1] += (sinf(rad) * (keycode == KEY_UP)) * 0.05;
+	p[1] += (sin(rad) * (keycode == KEY_UP)) * 0.05;
 	p[1] -= (sin(rad) * (keycode == KEY_DOWN)) * 0.1;
 	p[0] += (cos(rad) * (keycode == KEY_UP)) * 0.05;
 	p[0] -= (cos(rad) * (keycode == KEY_DOWN)) * 0.1;
