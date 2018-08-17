@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 11:35:03 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/17 13:05:16 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/17 14:49:58 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_map			*read_map(char *file)
 	t_value_v	values;
 
 	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		file_error(file);
 	m = (t_map *)ft_memalloc(sizeof(t_map));
 	m->size[1] = 0;
 	m->size[0] = 0;
