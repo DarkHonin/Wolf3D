@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/06 11:35:03 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/16 12:22:28 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/17 13:05:16 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <fcntl.h>
 #include <get_next_line.h>
 #include <unistd.h>
-#include <stdio.h>
 
 static	void	add_values(char *str, t_value_v *p, t_len *count)
 {
@@ -36,7 +35,7 @@ static	void	add_values(char *str, t_value_v *p, t_len *count)
 t_map			*read_map(char *file)
 {
 	int			fd;
-	t_map 		*m;
+	t_map		*m;
 	char		*line;
 	t_value_v	values;
 
@@ -55,10 +54,11 @@ t_map			*read_map(char *file)
 	free(line);
 	m->points = values;
 	m->size[0] = m->size[0] / m->size[1];
+	m->redraw = 1;
 	return (m);
 }
 
-t_map	*get_map(char *str)
+t_map			*get_map(char *str)
 {
 	static t_map *ret = NULL;
 

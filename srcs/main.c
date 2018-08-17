@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 17:33:59 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/16 16:01:15 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/17 13:10:59 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 #include <stdio.h>
 #include <math.h>
 
-int redraw = 1;
-
-int		loop(t_map	*map)
+int	loop(t_map *map)
 {
-	if (redraw)
+	if (map->redraw)
 	{
 		trace();
 		draw_map();
 		draw_player();
-		FLIP;
+		flip();
 	}
-	redraw = 0;
+	map->redraw = 0;
 	return (map != NULL);
 }
 
@@ -39,7 +37,6 @@ int	key(int keycode)
 	p = get_player();
 	p[2] += 10 * (keycode == KEY_RIGHT);
 	p[2] -= 10 * (keycode == KEY_LEFT);
-
 	rad = (p[2] / 180) * M_PI;
 	p[1] += (sinf(rad) * (keycode == KEY_UP)) * 0.05;
 	p[1] -= (sin(rad) * (keycode == KEY_DOWN)) * 0.1;
@@ -48,12 +45,11 @@ int	key(int keycode)
 	clean();
 	ft_putnbr(keycode);
 	ft_putendl("");
-	redraw = 1;
+	get_map(NULL)->redraw = 1;
 	return (1);
 }
 
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_map *e;
 

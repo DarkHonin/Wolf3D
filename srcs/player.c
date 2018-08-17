@@ -6,14 +6,14 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/07 10:43:08 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/16 12:23:07 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/17 13:29:24 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 #include <math.h>
 
-t_player	get_player()
+t_player	get_player(void)
 {
 	static t_player p = NULL;
 
@@ -26,7 +26,7 @@ t_player	get_player()
 	return (p);
 }
 
-void	draw_player()
+void		draw_player(void)
 {
 	t_player	p;
 	t_value_m	d;
@@ -49,6 +49,6 @@ void	draw_player()
 	d[2][1] = (sin(t) * VIEW_MAX) + d[0][1];
 	draw_line(d[0], d[1], 2, (t_color){255, 0, 0});
 	draw_line(d[0], d[2], 2, (t_color){255, 0, 0});
-	put_pixel(d[0][0], d[0][1], 255,255,255);
+	put_pixel(d[0][0], d[0][1], (t_color){255, 255, 255});
 	free_value_m(d, 3);
 }
