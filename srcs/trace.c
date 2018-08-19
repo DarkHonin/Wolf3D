@@ -6,7 +6,7 @@
 /*   By: wgourley <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 15:13:41 by wgourley          #+#    #+#             */
-/*   Updated: 2018/08/19 12:04:37 by wgourley         ###   ########.fr       */
+/*   Updated: 2018/08/19 12:30:53 by wgourley         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void				touch(t_value angle, t_player p, t_map *m)
 
 	ra = (p[2] - (FOV / 2)) + angle;
 	pp = ray(ra, p, m);
-
 	cang = get_point_angle(pp);
 	cang /= 90;
 	cang = (int)cang;
